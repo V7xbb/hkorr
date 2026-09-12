@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>XO - Super Sipr ADON</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --bg: #0A0A0A; --surface: #111; --surface-2: #1E1E1E; --surface-3: #252525;
+  --border: #2A2A2A; --text: #FFF; --text-dim: #8A8A8A;
+  --gold: #F0C850; --gold-2: #B8932A; --red: #EF4444;
+  --green: #10B981; --blue: #3B82F6; --purple: #8B5CF6;
+}
+html, body {
+  height: 100%; background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden; user-select: none;
+}
+body { display: flex; flex-direction: column; height: 100vh; }
+
+/* ============ الهيدر ============ */
+#header {
+  padding: 12px 16px; background: linear-gradient(180deg, #1a1a1a 0%, #0A0A0A 100%);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+  display: none; align-items: center; justify-content: space-between;
+}
+#header.show { display: flex; }
+.back-btn {
+  width: 38px; height: 38px; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 12px;
+  color: var(--text); cursor: pointer; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.15s; padding: 0;
+}
+.back-btn:active { transform: scale(0.92); }
+#header .title { font-size: 16px; font-weight: 900; flex: 1; text-align: center; }
+.spacer { width: 38px; }
+
+/* ============ المحتوى ============ */
+#content { flex: 1; overflow-y: auto; padding: 16px; }
+#content::-webkit-scrollbar { width: 0; }
+.page { display: none; }
+.page.active { display: block; animation: pageIn 0.25s; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============ الرئيسية ============ */
+.home-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; min-height: calc(100vh - 40px); padding: 20px;
+}
+.logo-big {
+  width: 90px; height: 90px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+  border-radius: 26px; display: flex; align-items: center;
+  justify-content: center; font-size: 48px; font-weight: 900;
+  color: #000; margin-bottom: 16px;
+  box-shadow: 0 10px 40px rgba(240, 200, 80, 0.3);
+}
+.home-wrap h1 {
+  font-size: 26px; font-weight: 900; margin-bottom: 4px;
+  background: linear-gradient(135deg, var(--gold), #fff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.tagline { font-size: 12px; color: var(--text-dim); margin-bottom: 20px; letter-spacing: 1px; }
+
+.player-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; max-width: 400px; margin-bottom: 18px;
+}
+.player-card .avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-2));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: #000; flex-shrink: 0;
+}
+.player-card .info { flex: 1; min-width: 0; }
+.player-card .name {
+  font-size: 14px; font-weight: 800;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.player-card .points {
+  font-size: 12px; color: var(--gold); font-weight: 800;
+  direction: ltr; display: flex; align-items: center; gap: 4px;
+}
+
+.menu-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; width: 100%; max-width: 400px;
+}
+.menu-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px 12px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; cursor: pointer; transition: 0.15s; text-align: center;
+}
+.menu-item:active { transform: scale(0.96); background: var(--surface-2); }
+.menu-item .icon { font-size: 30px; }
+.menu-item .name { font-size: 13px; font-weight: 800; }
+.menu-item .desc { font-size: 9px; color: var(--text-dim); }
+.menu-item.gold { border-color: var(--gold); }
+.menu-item.green { border-color: var(--green); }
+.menu-item.purple { border-color: var(--purple); }
+.menu-item.blue { border-color: var(--blue); }
+
+/* ============ الأزرار ============ */
+.btn {
+  padding: 12px 20px; border-radius: 12px; border: none;
+  font-family: inherit; font-size: 14px; font-weight: 800;
+  cursor: pointer; transition: 0.15s;
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; width: 100%;
+}
+.btn:active { transform: scale(0.97); }
+.btn.primary { background: var(--gold); color: #000; }
+.btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+.btn.danger { background: var(--red); color: #fff; }
+.btn.success { background: var(--green); color: #fff; }
+
+/* ============ الإحصائيات ============ */
+#stats {
+  width: 100%; max-width: 400px; margin: 0 auto 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; display: flex; padding: 12px 0;
+}
+.stat { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.stat .count { font-size: 22px; font-weight: 900; direction: ltr; line-height: 1; }
+.stat.win .count { color: var(--gold); }
+.stat.loss .count { color: var(--red); }
+.stat.draw .count { color: var(--text); }
+.stat .label { font-size: 9px; color: var(--text-dim); letter-spacing: 2px; font-weight: 800; }
+.stat-divider { width: 1px; background: var(--border); }
+
+/* ============ اللوحة ============ */
+.board-wrap {
+  width: min(92vw, 380px); margin: 0 auto;
+}
+#game {
+  width: 100%; aspect-ratio: 1/1;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr); gap: 10px; padding: 10px;
+  background: var(--surface); border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  position: relative;
+}
+.cell {
+  background: var(--surface-2); border-radius: 14px; cursor: pointer;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.cell:not(.taken):hover { background: var(--surface-3); }
+.cell:not(.taken):active { background: #2a2a2a; }
+.cell.taken { cursor: default; }
+.cell .mark {
+  width: 62%; height: 62%; display: flex;
+  align-items: center; justify-content: center;
+  animation: markIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes markIn { from { transform: scale(0); } to { transform: scale(1); } }
+.cell .mark svg { width: 100%; height: 100%; display: block; }
+
+/* أشكال السكين */
+.skin-classic .cell.x .mark svg line { stroke: var(--gold); stroke-width: 10; stroke-linecap: round; }
+.skin-classic .cell.o .mark svg circle { stroke: #FFF; stroke-width: 10; fill: none; }
+.skin-neon .cell.x .mark svg line { stroke: #10B981; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 6px #10B981); }
+.skin-neon .cell.o .mark svg circle { stroke: #10B981; stroke-width: 10; fill: none; filter: drop-shadow(0 0 6px #10B981); }
+.skin-gold .cell.x .mark svg line { stroke: #FFD700; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px #FFD700); }
+.skin-gold .cell.o .mark svg circle { stroke: #FFD700; stroke-width: 10; fill: none; filter: drop-shadow(0 0 8px #FFD700); }
+.skin-red .cell.x .mark svg line { stroke: #EF4444; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px #EF4444); }
+.skin-red .cell.o .mark svg circle { stroke: #EF4444; stroke-width: 10; fill: none; filter: drop-shadow(0 0 8px #EF4444); }
+.skin-blue .cell.x .mark svg line { stroke: #3B82F6; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px #3B82F6); }
+.skin-blue .cell.o .mark svg circle { stroke: #3B82F6; stroke-width: 10; fill: none; filter: drop-shadow(0 0 8px #3B82F6); }
+.skin-rainbow .cell.x .mark svg line { stroke: url(#rainbowGrad); stroke-width: 10; stroke-linecap: round; }
+.skin-rainbow .cell.o .mark svg circle { stroke: url(#rainbowGrad); stroke-width: 10; fill: none; }
+
+.cell.win { background: rgba(240, 200, 80, 0.15) !important; }
+.cell.last { background: var(--surface-3); }
+#game.ai-turn .cell:not(.taken) { animation: idlePulse 1.6s ease-in-out infinite; }
+@keyframes idlePulse {
+  0%,100% { background: var(--surface-2); }
+  50% { background: #1a1a1a; }
+}
+
+#win-line {
+  position: absolute; inset: 0; pointer-events: none; z-index: 10;
+  width: 100%; height: 100%; opacity: 0; transition: opacity 0.15s;
+}
+#win-line.show { opacity: 1; }
+#win-line line {
+  stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round;
+  stroke-dasharray: 500; stroke-dashoffset: 500;
+}
+#win-line.show line { animation: drawLine 0.3s ease-out forwards; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+/* ============ شريط الحالة ============ */
+.status-bar {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; padding: 10px; margin-bottom: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; font-size: 13px; font-weight: 800;
+  max-width: 400px; margin-left: auto; margin-right: auto;
+}
+.status-bar .player {
+  padding: 5px 12px; border-radius: 20px; background: var(--surface-2);
+  display: flex; align-items: center; gap: 6px; font-size: 11px;
+}
+.status-bar .player.active { background: var(--gold); color: #000; }
+.status-bar .vs { font-size: 10px; color: var(--text-dim); }
+
+/* ============ الغرف ============ */
+.room-section {
+  max-width: 400px; margin: 0 auto;
+}
+.room-code {
+  background: var(--surface); border: 1px solid var(--gold);
+  border-radius: 16px; padding: 20px; text-align: center;
+  margin-bottom: 16px;
+}
+.room-code .label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; letter-spacing: 2px; }
+.room-code .code {
+  font-size: 36px; font-weight: 900; color: var(--gold);
+  letter-spacing: 6px; direction: ltr; margin-bottom: 10px;
+  font-family: monospace;
+}
+.room-code .status {
+  display: inline-block; padding: 4px 12px;
+  background: var(--surface-2); border-radius: 20px;
+  font-size: 11px; font-weight: 800;
+}
+.room-code .status.waiting { color: var(--gold); }
+.room-code .status.playing { color: var(--green); }
+.room-code .status.finished { color: var(--red); }
+
+.input-box {
+  width: 100%; padding: 14px 16px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 12px; color: var(--text);
+  font-family: inherit; font-size: 15px; font-weight: 800;
+  text-align: center; letter-spacing: 4px;
+  margin-bottom: 12px; direction: ltr; text-transform: uppercase;
+}
+.input-box:focus { outline: none; border-color: var(--gold); }
+
+/* ============ الدردشة ============ */
+.chat-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 12px; margin-top: 12px;
+  max-height: 200px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.chat-msg {
+  padding: 6px 10px; background: var(--surface-2);
+  border-radius: 10px; font-size: 12px;
+  word-break: break-word;
+}
+.chat-msg .author { color: var(--gold); font-weight: 800; font-size: 11px; }
+.chat-msg.own { background: rgba(240, 200, 80, 0.1); }
+.chat-input-row {
+  display: flex; gap: 6px; margin-top: 8px;
+}
+.chat-input-row input {
+  flex: 1; padding: 10px 14px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 10px; color: var(--text);
+  font-family: inherit; font-size: 13px;
+}
+.chat-input-row input:focus { outline: none; border-color: var(--gold); }
+.chat-input-row button {
+  padding: 10px 16px; background: var(--gold); color: #000;
+  border: none; border-radius: 10px; font-weight: 800;
+  cursor: pointer; font-family: inherit;
+}
+
+/* ============ لوحة الصدارة ============ */
+.leader-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 12px;
+  margin-bottom: 8px;
+}
+.leader-item .rank {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--surface-2); display: flex;
+  align-items: center; justify-content: center;
+  font-weight: 900; font-size: 13px; flex-shrink: 0;
+}
+.leader-item.gold .rank { background: linear-gradient(135deg, #FFD700, #B8932A); color: #000; }
+.leader-item.silver .rank { background: linear-gradient(135deg, #C0C0C0, #808080); color: #000; }
+.leader-item.bronze .rank { background: linear-gradient(135deg, #CD7F32, #8B4513); color: #fff; }
+.leader-item .info { flex: 1; }
+.leader-item .name { font-size: 13px; font-weight: 800; }
+.leader-item .sub { font-size: 10px; color: var(--text-dim); }
+.leader-item .value { font-size: 15px; font-weight: 900; color: var(--gold); direction: ltr; }
+
+/* ============ الأشكال ============ */
+.skins-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; max-width: 400px; margin: 0 auto;
+}
+.skin-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 12px; cursor: pointer;
+  transition: 0.15s; position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.skin-item:active { transform: scale(0.97); }
+.skin-item.selected { border-color: var(--gold); background: rgba(240, 200, 80, 0.08); }
+.skin-item .preview {
+  background: #0a0a0a; border-radius: 10px; width: 100%;
+  aspect-ratio: 1; display: grid;
+  grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+  gap: 4px; padding: 8px;
+}
+.skin-item .preview > div {
+  display: flex; align-items: center; justify-content: center;
+  background: #111; border-radius: 6px; padding: 4px;
+}
+.skin-item .preview svg { width: 100%; height: 100%; }
+.skin-item .name { font-size: 12px; font-weight: 800; }
+.skin-item .price { font-size: 11px; font-weight: 900; color: var(--gold); direction: ltr; }
+.skin-item.free .price { color: var(--green); }
+.skin-item.owned::after {
+  content: '✓'; position: absolute; top: 6px; right: 6px;
+  width: 20px; height: 20px; background: var(--green); color: #fff;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; font-weight: 900;
+}
+
+/* ============ الإعدادات ============ */
+.settings-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; padding: 16px; margin-bottom: 12px;
+  max-width: 400px; margin-left: auto; margin-right: auto;
+}
+.settings-section h3 {
+  font-size: 14px; font-weight: 800; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.settings-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.settings-row:last-child { border-bottom: none; }
+.settings-row label { font-size: 12px; color: var(--text-dim); }
+.settings-row .val { font-size: 13px; font-weight: 800; direction: ltr; }
+
+/* ============ الاختيار ============ */
+.choice-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; max-width: 400px; margin: 0 auto;
+}
+.choice-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 16px 10px;
+  cursor: pointer; text-align: center; transition: 0.15s;
+}
+.choice-item:active { transform: scale(0.96); }
+.choice-item.easy { border-color: var(--green); }
+.choice-item.medium { border-color: var(--gold); }
+.choice-item.hard { border-color: var(--red); }
+.choice-item .emoji { font-size: 26px; margin-bottom: 6px; }
+.choice-item .name { font-size: 12px; font-weight: 800; }
+.choice-item .desc { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
+
+/* ============ شريط التنقل ============ */
+#nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: none; padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+#nav.show { display: flex; }
+.nav-btn {
+  flex: 1; background: none; border: none;
+  color: var(--text-dim); padding: 8px 4px;
+  cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; gap: 3px; transition: 0.15s;
+  font-family: inherit; border-radius: 10px;
+}
+.nav-btn .icon { font-size: 20px; }
+.nav-btn .label { font-size: 9px; font-weight: 800; }
+.nav-btn.active { color: var(--gold); background: rgba(240, 200, 80, 0.08); }
+
+/* ============ الإشعار ============ */
+#toast {
+  position: fixed; top: 20px; left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: var(--surface-2); border: 1px solid var(--border);
+  padding: 10px 18px; border-radius: 10px;
+  font-size: 13px; font-weight: 800;
+  transition: 0.3s; z-index: 9999; opacity: 0;
+  max-width: 90vw; text-align: center;
+}
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+#toast.success { border-color: var(--green); color: var(--green); }
+#toast.error { border-color: var(--red); color: var(--red); }
+
+/* ============ المودال ============ */
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500; padding: 20px;
+  opacity: 0; pointer-events: none; transition: 0.2s;
+}
+.modal.show { opacity: 1; pointer-events: auto; }
+.modal-content {
+  background: #0C0C0C; border: 1px solid var(--border);
+  border-radius: 20px; padding: 24px;
+  max-width: 340px; width: 100%; text-align: center;
+}
+.modal-content .icon { font-size: 48px; margin-bottom: 12px; }
+.modal-content h2 { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
+.modal-content p { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; }
+.modal-content .actions { display: flex; gap: 8px; }
+
+.rainbow-defs { position: absolute; width: 0; height: 0; }
+</style>
+</head>
+<body>
+
+<svg class="rainbow-defs">
+  <defs>
+    <linearGradient id="rainbowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="25%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="75%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+  </defs>
+</svg>
+
+<div id="header">
+  <button class="back-btn" onclick="goHome()">←</button>
+  <div class="title" id="header-title">XO</div>
+  <div class="spacer"></div>
+</div>
+
+<div id="content" class="skin-classic">
+
+  <!-- الرئيسية -->
+  <div class="page active" id="page-home">
+    <div class="home-wrap">
+      <div class="logo-big">XO</div>
+      <h1>إكس أو</h1>
+      <p class="tagline">Super Sipr ADON</p>
+
+      <div class="player-card">
+        <div class="avatar" id="home-avatar">?</div>
+        <div class="info">
+          <div class="name" id="home-name">جاري التحميل...</div>
+          <div class="points">⭐ <span id="home-points">0</span> نقطة</div>
+        </div>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-item gold" onclick="goPage('mode-ai')">
+          <div class="icon">🎮</div>
+          <div class="name">ضد البوت</div>
+          <div class="desc">3 مستويات</div>
+        </div>
+        <div class="menu-item green" onclick="startPvP()">
+          <div class="icon">👥</div>
+          <div class="name">لاعب ضد لاعب</div>
+          <div class="desc">نفس الجهاز</div>
+        </div>
+        <div class="menu-item purple" onclick="goPage('online')">
+          <div class="icon">🌐</div>
+          <div class="name">أونلاين</div>
+          <div class="desc">مع صديق</div>
+        </div>
+        <div class="menu-item blue" onclick="goPage('leaderboard')">
+          <div class="icon">🏆</div>
+          <div class="name">الصدارة</div>
+          <div class="desc">الأفضل</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 16px; width: 100%; max-width: 400px;">
+        <button class="btn secondary" onclick="goPage('skins')">🎨 الأشكال</button>
+        <button class="btn secondary" onclick="goPage('settings')">⚙️ الإعدادات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- اختيار الصعوبة -->
+  <div class="page" id="page-mode-ai">
+    <p style="text-align:center; color: var(--text-dim); font-size: 13px; margin-bottom: 16px;">اختر مستوى الصعوبة</p>
+    <div class="choice-grid">
+      <div class="choice-item easy" onclick="startAI('easy')">
+        <div class="emoji">🟢</div>
+        <div class="name">سهل</div>
+        <div class="desc">للمبتدئين</div>
+      </div>
+      <div class="choice-item medium" onclick="startAI('medium')">
+        <div class="emoji">🟡</div>
+        <div class="name">متوسط</div>
+        <div class="desc">تحدي</div>
+      </div>
+      <div class="choice-item hard" onclick="startAI('hard')">
+        <div class="emoji">🔴</div>
+        <div class="name">صعب</div>
+        <div class="desc">لا يُهزم</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- اللعبة -->
+  <div class="page" id="page-game">
+    <div class="status-bar">
+      <div class="player" id="p1-badge">❌ اللاعب 1</div>
+      <span class="vs">VS</span>
+      <div class="player" id="p2-badge">⭕ اللاعب 2</div>
+    </div>
+    <div id="stats">
+      <div class="stat win" id="s-win">
+        <div class="count" id="count-win">0</div>
+        <div class="label">WIN</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat draw" id="s-draw">
+        <div class="count" id="count-draw">0</div>
+        <div class="label">DRAW</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat loss" id="s-loss">
+        <div class="count" id="count-loss">0</div>
+        <div class="label">LOSS</div>
+      </div>
+    </div>
+    <div class="board-wrap">
+      <div id="game">
+        <svg id="win-line" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <line x1="0" y1="0" x2="0" y2="0"/>
+        </svg>
+      </div>
+    </div>
+    <button class="btn secondary" style="max-width: 380px; margin: 12px auto 0;" onclick="newRound()">🔄 جولة جديدة</button>
+  </div>
+
+  <!-- الأونلاين -->
+  <div class="page" id="page-online">
+    <div class="room-section">
+      <div id="online-start">
+        <div class="menu-grid" style="margin-bottom: 16px;">
+          <div class="menu-item gold" onclick="createRoom()">
+            <div class="icon">➕</div>
+            <div class="name">إنشاء غرفة</div>
+            <div class="desc">أنشئ وشارك الكود</div>
+          </div>
+          <div class="menu-item blue" onclick="showJoinForm()">
+            <div class="icon">🔍</div>
+            <div class="name">انضم لغرفة</div>
+            <div class="desc">أدخل الكود</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="online-joining" style="display: none;">
+        <input type="text" class="input-box" id="room-code-input" placeholder="ABC123" maxlength="6" autocomplete="off">
+        <button class="btn primary" onclick="joinRoom()">انضم</button>
+        <button class="btn secondary" style="margin-top: 8px;" onclick="showOnlineStart()">رجوع</button>
+      </div>
+
+      <div id="online-room" style="display: none;">
+        <div class="room-code">
+          <div class="label">كود الغرفة</div>
+          <div class="code" id="room-code-display">------</div>
+          <div class="status waiting" id="room-status">في الانتظار...</div>
+        </div>
+
+        <div class="status-bar" id="online-status-bar" style="display: none;">
+          <div class="player" id="online-p1">❌ لاعب</div>
+          <span class="vs">VS</span>
+          <div class="player" id="online-p2">⭕ لاعب</div>
+        </div>
+
+        <div class="board-wrap" id="online-board-wrap" style="display: none;">
+          <div id="online-game"></div>
+        </div>
+
+        <div class="chat-box" id="chat-box" style="display: none;">
+          <div id="chat-messages"></div>
+          <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="اكتب رسالة..." maxlength="200">
+            <button onclick="sendChat()">إرسال</button>
+          </div>
+        </div>
+
+        <button class="btn danger" style="margin-top: 12px;" onclick="leaveRoom()">🚪 خروج</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- لوحة الصدارة -->
+  <div class="page" id="page-leaderboard">
+    <div id="leaderboard-list">
+      <p style="text-align:center; color: var(--text-dim);">جاري التحميل...</p>
+    </div>
+  </div>
+
+  <!-- الأشكال -->
+  <div class="page" id="page-skins">
+    <div class="skins-grid" id="skins-grid"></div>
+  </div>
+
+  <!-- الإعدادات -->
+  <div class="page" id="page-settings">
+    <div class="settings-section">
+      <h3>📊 إحصائيات</h3>
+      <div class="settings-row"><label>الاسم</label><span class="val" id="set-name">-</span></div>
+      <div class="settings-row"><label>الآيدي</label><span class="val" id="set-id">-</span></div>
+      <div class="settings-row"><label>النقاط</label><span class="val" id="set-points">0</span></div>
+      <div class="settings-row"><label>الألعاب</label><span class="val" id="set-games">0</span></div>
+      <div class="settings-row"><label>الفوز</label><span class="val" id="set-wins">0</span></div>
+      <div class="settings-row"><label>التعادل</label><span class="val" id="set-draws">0</span></div>
+      <div class="settings-row"><label>الخسارة</label><span class="val" id="set-losses">0</span></div>
+    </div>
+    <div class="settings-section">
+      <h3>⚙️ إجراءات</h3>
+      <button class="btn secondary" onclick="refreshUser()">🔄 تحديث البيانات</button>
+      <button class="btn danger" style="margin-top: 8px;" onclick="resetLocal()">🗑 تصفير المحلي</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- شريط التنقل -->
+<div id="nav">
+  <button class="nav-btn active" data-page="home" onclick="goPage('home')">
+    <span class="icon">🏠</span><span class="label">الرئيسية</span>
+  </button>
+  <button class="nav-btn" data-page="game" onclick="goPage('game')">
+    <span class="icon">🎮</span><span class="label">اللعب</span>
+  </button>
+  <button class="nav-btn" data-page="online" onclick="goPage('online')">
+    <span class="icon">🌐</span><span class="label">أونلاين</span>
+  </button>
+  <button class="nav-btn" data-page="leaderboard" onclick="goPage('leaderboard')">
+    <span class="icon">🏆</span><span class="label">الصدارة</span>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ============ إعدادات ============
+const SERVER_URL = window.location.origin;
+const WS_URL = SERVER_URL.replace('https://', 'wss://').replace('http://', 'ws://');
+
+const tg = window.Telegram?.WebApp;
+if (tg) { tg.ready(); tg.expand(); tg.setHeaderColor('#0A0A0A'); tg.setBackgroundColor('#0A0A0A'); }
+
+// ============ بيانات المستخدم ============
+let user = { id: 0, name: 'لاعب', username: '', points: 0, games: 0, wins: 0, draws: 0, losses: 0, owned_skins: ['classic'], current_skin: 'classic' };
+
+if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+  const u = tg.initDataUnsafe.user;
+  user.id = u.id;
+  user.name = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '');
+  user.username = u.username || '';
+}
+if (!user.id) user.id = Math.floor(Math.random() * 900000) + 100000;
+
+// ============ SVG ============
+const X_SVG = '<svg viewBox="0 0 100 100" fill="none"><line x1="25" y1="25" x2="75" y2="75"/><line x1="75" y1="25" x2="25" y2="75"/></svg>';
+const O_SVG = '<svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="28"/></svg>';
+
+// ============ الأشكال ============
+const SKINS = [
+  { id: 'classic', name: 'كلاسيك', price: 0, free: true },
+  { id: 'neon', name: 'نيون', price: 200 },
+  { id: 'gold', name: 'ذهبي', price: 500 },
+  { id: 'red', name: 'أحمر', price: 400 },
+  { id: 'blue', name: 'أزرق', price: 400 },
+  { id: 'rainbow', name: 'قوس قزح', price: 1500 },
+];
+
+// ============ التنقل ============
+function goPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + page);
+  if (el) el.classList.add('active');
+
+  document.getElementById('header').classList.toggle('show', page !== 'home');
+
+  const titles = { home: 'XO', game: '🎮 اللعب', online: '🌐 أونلاين', leaderboard: '🏆 الصدارة', skins: '🎨 الأشكال', settings: '⚙️ الإعدادات', 'mode-ai': '🎯 اختر الصعوبة' };
+  document.getElementById('header-title').textContent = titles[page] || 'XO';
+
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.page === page));
+
+  if (page === 'leaderboard') loadLeaderboard();
+  if (page === 'skins') renderSkins();
+  if (page === 'settings') updateSettingsView();
+
+  if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+}
+
+function goHome() {
+  goPage('home');
+}
+
+// ============ إشعار ============
+function showToast(msg, type) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'show ' + (type || '');
+  setTimeout(() => toast.className = '', 2500);
+}
+
+// ============ API ============
+async function apiCall(path, method = 'GET', body = null) {
+  try {
+    const opts = { method, headers: { 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(SERVER_URL + path, opts);
+    const data = await res.json();
+    return { ok: res.ok, data };
+  } catch (e) {
+    console.error('API Error:', e);
+    return { ok: false, error: e.message };
+  }
+}
+
+// ============ تحميل المستخدم ============
+async function loadUser() {
+  const res = await apiCall('/api/user/register', 'POST', {
+    user_id: user.id, name: user.name, username: user.username
+  });
+  if (res.ok) {
+    user = { ...user, ...res.data };
+    updateUserUI();
+  }
+}
+
+function updateUserUI() {
+  document.getElementById('home-avatar').textContent = (user.name || '?')[0].toUpperCase();
+  document.getElementById('home-name').textContent = user.name || 'لاعب';
+  document.getElementById('home-points').textContent = user.points || 0;
+}
+
+function updateSettingsView() {
+  document.getElementById('set-name').textContent = user.name || '-';
+  document.getElementById('set-id').textContent = user.id || '-';
+  document.getElementById('set-points').textContent = user.points || 0;
+  document.getElementById('set-games').textContent = user.games || 0;
+  document.getElementById('set-wins').textContent = user.wins || 0;
+  document.getElementById('set-draws').textContent = user.draws || 0;
+  document.getElementById('set-losses').textContent = user.losses || 0;
+}
+
+async function refreshUser() {
+  const res = await apiCall('/api/user/' + user.id);
+  if (res.ok) { user = { ...user, ...res.data }; updateUserUI(); showToast('✓ تم التحديث', 'success'); }
+}
+
+function resetLocal() {
+  if (!confirm('هل تريد تصفير الإحصائيات المحلية؟')) return;
+  localStorage.clear();
+  showToast('✓ تم التصفير', 'success');
+}
+
+// ============ الأشكال ============
+function renderSkins() {
+  const grid = document.getElementById('skins-grid');
+  grid.innerHTML = '';
+  const owned = user.owned_skins || ['classic'];
+  const current = user.current_skin || 'classic';
+
+  SKINS.forEach(skin => {
+    const isOwned = owned.includes(skin.id);
+    const isSelected = current === skin.id;
+    const item = document.createElement('div');
+    item.className = 'skin-item ' + (isOwned ? 'owned ' : '') + (isSelected ? 'selected ' : '') + (skin.free ? 'free' : '');
+    item.innerHTML = `
+      <div class="preview skin-${skin.id}">
+        <div class="cell x">${X_SVG}</div>
+        <div class="cell o">${O_SVG}</div>
+        <div class="cell o">${O_SVG}</div>
+        <div class="cell x">${X_SVG}</div>
+      </div>
+      <div class="name">${skin.name}</div>
+      <div class="price">${isOwned ? '✓ مملوك' : '⭐ ' + skin.price}</div>
+    `;
+    item.onclick = () => selectSkin(skin, isOwned);
+    grid.appendChild(item);
+  });
+}
+
+function selectSkin(skin, isOwned) {
+  if (!isOwned && !skin.free) {
+    showToast('🔒 هذا الشكل غير مملوك', 'error');
+    return;
+  }
+  user.current_skin = skin.id;
+  document.getElementById('content').className = 'skin-' + skin.id;
+  renderSkins();
+  showToast('✓ ' + skin.name);
+}
+
+// ============ منطق اللعبة (ضد AI / PvP محلي) ============
+const WIN_CONDS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+function checkWin(board, player) {
+  for (const c of WIN_CONDS) {
+    if (board[c[0]] === player && board[c[1]] === player && board[c[2]] === player) return c;
+  }
+  return null;
+}
+
+let gameState = {
+  mode: 'ai',
+  difficulty: 'medium',
+  board: [' ',' ',' ',' ',' ',' ',' ',' ',' '],
+  playerSymbol: 'X',
+  aiSymbol: 'O',
+  turn: 'X',
+  gameOver: false,
+  aiThinking: false,
+  lastMove: -1,
+  winLine: null,
+  scores: { win: 0, draw: 0, loss: 0 },
+};
+
+function loadScores() {
+  try {
+    const s = JSON.parse(localStorage.getItem('xo_scores') || '{}');
+    if (s.win) gameState.scores.win = s.win;
+    if (s.draw) gameState.scores.draw = s.draw;
+    if (s.loss) gameState.scores.loss = s.loss;
+  } catch (e) {}
+}
+function saveScores() {
+  localStorage.setItem('xo_scores', JSON.stringify(gameState.scores));
+}
+
+function paintScores() {
+  document.getElementById('count-win').textContent = gameState.scores.win;
+  document.getElementById('count-draw').textContent = gameState.scores.draw;
+  document.getElementById('count-loss').textContent = gameState.scores.loss;
+}
+
+// ============ AI (Minimax) ============
+function aiChooseAction(board, aiSym, playerSym, difficulty) {
+  const avail = [];
+  for (let i = 0; i < 9; i++) if (board[i] === ' ') avail.push(i);
+  if (!avail.length) return -1;
+
+  // سهل: عشوائي
+  if (difficulty === 'easy') {
+    return avail[Math.floor(Math.random() * avail.length)];
+  }
+
+  // متوسط: 50% عشوائي، 50% ذكي
+  if (difficulty === 'medium' && Math.random() < 0.5) {
+    return avail[Math.floor(Math.random() * avail.length)];
+  }
+
+  // صعب: Minimax كامل
+  function minimax(b, depth, isMax, alpha, beta) {
+    const w = checkWin(b, aiSym);
+    if (w) return 10 - depth;
+    const l = checkWin(b, playerSym);
+    if (l) return depth - 10;
+    if (!b.includes(' ')) return 0;
+
+    if (isMax) {
+      let best = -Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (b[i] === ' ') {
+          b[i] = aiSym;
+          best = Math.max(best, minimax(b, depth+1, false, alpha, beta));
+          b[i] = ' ';
+          alpha = Math.max(alpha, best);
+          if (beta <= alpha) break;
+        }
+      }
+      return best;
+    } else {
+      let best = Infinity;
+      for (let i = 0; i < 9; i++) {
+        if (b[i] === ' ') {
+          b[i] = playerSym;
+          best = Math.min(best, minimax(b, depth+1, true, alpha, beta));
+          b[i] = ' ';
+          beta = Math.min(beta, best);
+          if (beta <= alpha) break;
+        }
+      }
+      return best;
+    }
+  }
+
+  let bestScore = -Infinity;
+  let bestMoves = [];
+  for (const a of avail) {
+    board[a] = aiSym;
+    const score = minimax(board, 0, false, -Infinity, Infinity);
+    board[a] = ' ';
+    if (score > bestScore) { bestScore = score; bestMoves = [a]; }
+    else if (score === bestScore) bestMoves.push(a);
+  }
+  return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+}
+
+// ============ رسم اللوحة ============
+function buildBoard() {
+  const gameEl = document.getElementById('game');
+  // حذف الخلايا القديمة (نحتفظ بـ win-line)
+  Array.from(gameEl.querySelectorAll('.cell')).forEach(c => c.remove());
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.i = i;
+    cell.addEventListener('click', () => onClick(i));
+    gameEl.appendChild(cell);
+  }
+}
+
+function getCells() { return Array.from(document.querySelectorAll('#game .cell')); }
+
+function render() {
+  const cells = getCells();
+  for (let i = 0; i < 9; i++) {
+    const cell = cells[i];
+    if (!cell) continue;
+    const mark = gameState.board[i];
+    const wasX = cell.classList.contains('x');
+    const wasO = cell.classList.contains('o');
+    const isX = mark === 'X';
+    const isO = mark === 'O';
+    cell.classList.remove('x', 'o', 'taken', 'win', 'last');
+    if (isX) cell.classList.add('x', 'taken');
+    else if (isO) cell.classList.add('o', 'taken');
+    if (gameState.winLine?.includes(i)) cell.classList.add('win');
+    else if (gameState.lastMove === i) cell.classList.add('last');
+
+    if (isX && !wasX) cell.innerHTML = '<div class="mark">' + X_SVG + '</div>';
+    else if (isO && !wasO) cell.innerHTML = '<div class="mark">' + O_SVG + '</div>';
+    else if (!isX && !isO && (wasX || wasO)) cell.innerHTML = '';
+  }
+  document.getElementById('game').classList.toggle('ai-turn',
+    gameState.mode === 'ai' && !gameState.gameOver && gameState.turn === gameState.aiSymbol);
+
+  // تحديث الشارات
+  if (gameState.mode === 'ai') {
+    document.getElementById('p1-badge').textContent = '👤 أنت';
+    document.getElementById('p2-badge').textContent = '🤖 البوت';
+    document.getElementById('p1-badge').classList.toggle('active', gameState.turn === gameState.playerSymbol);
+    document.getElementById('p2-badge').classList.toggle('active', gameState.turn === gameState.aiSymbol);
+  } else {
+    document.getElementById('p1-badge').textContent = '❌ لاعب 1';
+    document.getElementById('p2-badge').textContent = '⭕ لاعب 2';
+    document.getElementById('p1-badge').classList.toggle('active', gameState.turn === 'X');
+    document.getElementById('p2-badge').classList.toggle('active', gameState.turn === 'O');
+  }
+}
+
+function showWinLine(combo) {
+  const gameEl = document.getElementById('game');
+  const cells = getCells();
+  const r = gameEl.getBoundingClientRect();
+  const r1 = cells[combo[0]].getBoundingClientRect();
+  const r3 = cells[combo[2]].getBoundingClientRect();
+  const p1 = [(r1.left+r1.width/2-r.left)/r.width*100, (r1.top+r1.height/2-r.top)/r.height*100];
+  const p3 = [(r3.left+r3.width/2-r.left)/r.width*100, (r3.top+r3.height/2-r.top)/r.height*100];
+  const dx = p3[0]-p1[0], dy = p3[1]-p1[1], ext = 0.12;
+  const winLineEl = document.querySelector('#win-line line');
+  const svg = document.getElementById('win-line');
+  winLineEl.setAttribute('x1', p1[0]-dx*ext);
+  winLineEl.setAttribute('y1', p1[1]-dy*ext);
+  winLineEl.setAttribute('x2', p3[0]+dx*ext);
+  winLineEl.setAttribute('y2', p3[1]+dy*ext);
+  const len = Math.hypot(p3[0]-p1[0], p3[1]-p1[1]) * 1.5;
+  winLineEl.style.strokeDasharray = len;
+  winLineEl.style.strokeDashoffset = len;
+  svg.classList.remove('show');
+  void svg.offsetWidth;
+  svg.classList.add('show');
+  winLineEl.style.animation = 'none';
+  void winLineEl.offsetWidth;
+  winLineEl.style.animation = 'drawLine 0.3s ease-out forwards';
+}
+
+function hideWinLine() {
+  document.getElementById('win-line')?.classList.remove('show');
+}
+
+// ============ بدء لعبة AI ============
+function startAI(difficulty) {
+  gameState.mode = 'ai';
+  gameState.difficulty = difficulty;
+  gameState.scores = { win: 0, draw: 0, loss: 0 };
+  loadScores();
+  paintScores();
+  goPage('game');
+  buildBoard();
+  newRound();
+}
+
+function startPvP() {
+  gameState.mode = 'pvp';
+  gameState.scores = { win: 0, draw: 0, loss: 0 };
+  paintScores();
+  goPage('game');
+  buildBoard();
+  newRound();
+}
+
+function newRound() {
+  gameState.board = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+  gameState.gameOver = false;
+  gameState.aiThinking = false;
+  gameState.lastMove = -1;
+  gameState.winLine = null;
+  hideWinLine();
+
+  if (gameState.mode === 'ai') {
+    gameState.playerSymbol = Math.random() < 0.5 ? 'X' : 'O';
+    gameState.aiSymbol = gameState.playerSymbol === 'X' ? 'O' : 'X';
+    gameState.turn = Math.random() < 0.5 ? gameState.playerSymbol : gameState.aiSymbol;
+  } else {
+    gameState.turn = 'X';
+  }
+
+  getCells().forEach(c => { c.className = 'cell'; c.innerHTML = ''; });
+  render();
+
+  if (gameState.mode === 'ai' && gameState.turn === gameState.aiSymbol) {
+    gameState.aiThinking = true;
+    setTimeout(aiPlay, 500);
+  }
+}
+
+function onClick(i) {
+  if (gameState.gameOver || gameState.aiThinking) return;
+  if (gameState.mode === 'ai' && gameState.turn !== gameState.playerSymbol) return;
+  if (gameState.board[i] !== ' ') return;
+
+  const sym = gameState.mode === 'ai' ? gameState.playerSymbol : gameState.turn;
+  gameState.board[i] = sym;
+  gameState.lastMove = i;
+  render();
+
+  if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+
+  const w = checkWin(gameState.board, sym);
+  if (w) return finishRound(gameState.mode === 'ai' ? (sym === gameState.playerSymbol ? 'win' : 'loss') : 'win', w);
+  if (!gameState.board.includes(' ')) return finishRound('draw');
+
+  if (gameState.mode === 'ai') {
+    gameState.turn = gameState.aiSymbol;
+    gameState.aiThinking = true;
+    render();
+    setTimeout(aiPlay, 500);
+  } else {
+    gameState.turn = gameState.turn === 'X' ? 'O' : 'X';
+    render();
+  }
+}
+
+function aiPlay() {
+  if (gameState.gameOver) { gameState.aiThinking = false; return; }
+  const action = aiChooseAction(gameState.board, gameState.aiSymbol, gameState.playerSymbol, gameState.difficulty);
+  if (action === -1) { gameState.aiThinking = false; return; }
+  gameState.board[action] = gameState.aiSymbol;
+  gameState.lastMove = action;
+  gameState.aiThinking = false;
+  const w = checkWin(gameState.board, gameState.aiSymbol);
+  if (w) return finishRound('loss', w);
+  if (!gameState.board.includes(' ')) return finishRound('draw');
+  gameState.turn = gameState.playerSymbol;
+  render();
+}
+
+function finishRound(result, combo) {
+  gameState.gameOver = true;
+  gameState.aiThinking = false;
+
+  if (result === 'win') { gameState.scores.win++; updatePoints(50); }
+  else if (result === 'loss') { gameState.scores.loss++; updatePoints(10); }
+  else { gameState.scores.draw++; updatePoints(25); }
+  saveScores();
+  paintScores();
+  render();
+
+  if (combo) {
+    setTimeout(() => {
+      gameState.winLine = combo;
+      render();
+      showWinLine(combo);
+    }, 200);
+  }
+
+  setTimeout(() => { if (!gameState.gameOver) return; newRound(); }, 2500);
+}
+
+function updatePoints(pts) {
+  // نضيف النقاط محلياً (السيرفر يضيفها للأونلاين)
+  user.points = (user.points || 0) + pts;
+  updateUserUI();
+  // نرسل للسيرفر
+  apiCall('/api/user/register', 'POST', { user_id: user.id, name: user.name });
+}
+
+// ============ الأونلاين ============
+let ws = null;
+let currentRoom = null;
+let myRole = 'host';
+let onlineBoard = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
+
+function showOnlineStart() {
+  document.getElementById('online-start').style.display = 'block';
+  document.getElementById('online-joining').style.display = 'none';
+  document.getElementById('online-room').style.display = 'none';
+}
+
+function showJoinForm() {
+  document.getElementById('online-start').style.display = 'none';
+  document.getElementById('online-joining').style.display = 'block';
+  document.getElementById('room-code-input').focus();
+}
+
+async function createRoom() {
+  const res = await apiCall('/api/rooms/create', 'POST', { player_id: user.id, player_name: user.name });
+  if (!res.ok) { showToast('❌ فشل إنشاء الغرفة', 'error'); return; }
+  currentRoom = res.data.code;
+  myRole = 'host';
+  showRoomUI();
+  connectWS();
+}
+
+async function joinRoom() {
+  const code = document.getElementById('room-code-input').value.trim().toUpperCase();
+  if (code.length !== 6) { showToast('❌ الكود لازم 6 أحرف', 'error'); return; }
+  const res = await apiCall('/api/rooms/join/' + code, 'POST', { player_id: user.id, player_name: user.name });
+  if (!res.ok) { showToast('❌ ' + (res.data?.detail || 'فشل الانضمام'), 'error'); return; }
+  currentRoom = code;
+  myRole = res.data.role;
+  showRoomUI();
+  connectWS();
+}
+
+function showRoomUI() {
+  document.getElementById('online-start').style.display = 'none';
+  document.getElementById('online-joining').style.display = 'none';
+  document.getElementById('online-room').style.display = 'block';
+  document.getElementById('room-code-display').textContent = currentRoom;
+  document.getElementById('room-status').textContent = 'في الانتظار...';
+  document.getElementById('room-status').className = 'status waiting';
+  document.getElementById('online-status-bar').style.display = 'none';
+  document.getElementById('online-board-wrap').style.display = 'none';
+  document.getElementById('chat-box').style.display = 'none';
+}
+
+function connectWS() {
+  const wsUrl = `${WS_URL}/ws/${currentRoom}/${user.id}`;
+  ws = new WebSocket(wsUrl);
+
+  ws.onopen = () => { console.log('WS Connected'); };
+
+  ws.onmessage = (e) => {
+    try {
+      const msg = JSON.parse(e.data);
+      handleWSMessage(msg);
+    } catch (err) { console.error(err); }
+  };
+
+  ws.onclose = () => { console.log('WS Closed'); };
+  ws.onerror = (e) => { console.error('WS Error', e); };
+}
+
+function handleWSMessage(msg) {
+  if (msg.type === 'welcome' || msg.type === 'room_update') {
+    const room = msg.room;
+    onlineBoard = room.board;
+    updateOnlineUI(room);
+  } else if (msg.type === 'chat') {
+    addChatMessage(msg);
+  } else if (msg.type === 'player_left') {
+    showToast('🔌 لاعب خرج من الغرفة', 'error');
+  } else if (msg.type === 'error') {
+    showToast('⚠️ ' + msg.message, 'error');
+  }
+}
+
+function updateOnlineUI(room) {
+  const statusEl = document.getElementById('room-status');
+  if (room.status === 'waiting') {
+    statusEl.textContent = 'في الانتظار...';
+    statusEl.className = 'status waiting';
+    document.getElementById('online-status-bar').style.display = 'none';
+    document.getElementById('online-board-wrap').style.display = 'none';
+    document.getElementById('chat-box').style.display = 'none';
+  } else {
+    statusEl.textContent = room.status === 'playing' ? 'اللعبة جارية' : 'انتهت';
+    statusEl.className = 'status ' + (room.status === 'playing' ? 'playing' : 'finished');
+    document.getElementById('online-status-bar').style.display = 'flex';
+    document.getElementById('online-board-wrap').style.display = 'block';
+    document.getElementById('chat-box').style.display = 'block';
+
+    document.getElementById('online-p1').textContent = '❌ ' + (room.host_name || 'لاعب');
+    document.getElementById('online-p2').textContent = '⭕ ' + (room.guest_name || 'لاعب');
+    document.getElementById('online-p1').classList.toggle('active', room.turn === 'X');
+    document.getElementById('online-p2').classList.toggle('active', room.turn === 'O');
+
+    renderOnlineBoard(room.board);
+  }
+}
+
+function renderOnlineBoard(board) {
+  const gameEl = document.getElementById('online-game');
+  gameEl.className = 'skin-' + (user.current_skin || 'classic');
+  gameEl.id = 'game';
+
+  // نحذف الخلايا القديمة
+  Array.from(gameEl.querySelectorAll('.cell')).forEach(c => c.remove());
+
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.i = i;
+    if (board[i] !== ' ') {
+      cell.classList.add('taken', board[i] === 'X' ? 'x' : 'o');
+      cell.innerHTML = '<div class="mark">' + (board[i] === 'X' ? X_SVG : O_SVG) + '</div>';
+    }
+    cell.onclick = () => onlineClick(i);
+    gameEl.appendChild(cell);
+  }
+}
+
+function onlineClick(i) {
+  if (!ws || ws.readyState !== WebSocket.OPEN) return;
+  if (onlineBoard[i] !== ' ') return;
+  // نرسل الحركة للسيرفر
+  const isMyTurn = (myRole === 'host' && currentTurnSymbol() === 'X') ||
+                   (myRole === 'guest' && currentTurnSymbol() === 'O');
+  if (!isMyTurn) { showToast('⏳ ليس دورك', 'error'); return; }
+
+  ws.send(JSON.stringify({ type: 'move', index: i }));
+}
+
+function currentTurnSymbol() {
+  // نستنتج الدور من عدد الحركات
+  const xCount = onlineBoard.filter(c => c === 'X').length;
+  const oCount = onlineBoard.filter(c => c === 'O').length;
+  return xCount <= oCount ? 'X' : 'O';
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text || !ws || ws.readyState !== WebSocket.OPEN) return;
+  ws.send(JSON.stringify({ type: 'chat', text: text }));
+  input.value = '';
+}
+
+function addChatMessage(msg) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg' + (msg.player_id === user.id ? ' own' : '');
+  div.innerHTML = `<span class="author">${msg.player_name || 'لاعب'}:</span> ${msg.text}`;
+  container.appendChild(div);
+  container.parentElement.scrollTop = container.parentElement.scrollHeight;
+}
+
+function leaveRoom() {
+  if (ws) { ws.close(); ws = null; }
+  currentRoom = null;
+  showOnlineStart();
+  showToast('تم الخروج');
+}
+
+// ============ لوحة الصدارة ============
+async function loadLeaderboard() {
+  const container = document.getElementById('leaderboard-list');
+  container.innerHTML = '<p style="text-align:center;color:var(--text-dim);">جاري التحميل...</p>';
+  const res = await apiCall('/api/leaderboard?limit=20');
+  if (!res.ok) { container.innerHTML = '<p style="text-align:center;color:var(--red);">فشل التحميل</p>'; return; }
+  const data = res.data;
+  if (!data.length) { container.innerHTML = '<p style="text-align:center;color:var(--text-dim);">لا يوجد لاعبين بعد</p>'; return; }
+  container.innerHTML = '';
+  data.forEach(u => {
+    const cls = u.rank === 1 ? 'gold' : u.rank === 2 ? 'silver' : u.rank === 3 ? 'bronze' : '';
+    const div = document.createElement('div');
+    div.className = 'leader-item ' + cls;
+    div.innerHTML = `
+      <div class="rank">${u.rank}</div>
+      <div class="info">
+        <div class="name">${u.name}</div>
+        <div class="sub">${u.wins} فوز</div>
+      </div>
+      <div class="value">${u.points}⭐</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// ============ بدء التطبيق ============
+loadScores();
+paintScores();
+buildBoard();
+render();
+renderSkins();
+loadUser();
+
+console.log('✓ التطبيق جاهز');
+</script>
+</body>
+</html>
