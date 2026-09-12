@@ -1,16 +1,13 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
-from fastapi.responses import HTMLResponse, FileResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Dict, List, Optional
 from datetime import datetime
 from pathlib import Path
 import random
 import string
 import json
-import asyncio
-import os
 
 app = FastAPI(title="XO Game Server", version="2.0")
 
@@ -163,7 +160,6 @@ def check_winner(board: List[str]) -> Optional[str]:
 # ============ الصفحة الرئيسية ============
 @app.get("/", response_class=HTMLResponse)
 async def root():
-    # يبحث عن index.html في أكثر من مكان
     for path in ["index.html", "static/index.html", "templates/index.html"]:
         f = Path(path)
         if f.exists():
