@@ -440,8 +440,3 @@ async def broadcast(code: str, msg: dict, exclude: Optional[int] = None):
             await ws.send_json(msg)
         except:
             pass
-
-# ============ الملفات الثابتة ============
-static_dir = Path("static")
-if static_dir.exists():
-    app.mount("/static", StaticFiles(directory="static"), name="static")
