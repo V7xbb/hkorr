@@ -67,7 +67,7 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============ Connection Indicator ============ */
+/* Connection Indicator */
 .conn-indicator {
   position: fixed; top: 12px; left: 12px;
   width: 12px; height: 12px; border-radius: 50%;
@@ -85,7 +85,7 @@ body::after {
 }
 @keyframes connPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-/* ============ Auth Screen ============ */
+/* Auth Screen */
 .auth-wrap {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   min-height: 100vh; padding: 20px;
@@ -107,7 +107,6 @@ body::after {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 .auth-wrap .subtitle { font-size: 13px; color: var(--dim); margin-bottom: 30px; }
-
 .auth-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -188,7 +187,7 @@ body::after {
 }
 .auth-success.show { display: block; }
 
-/* ============ Header ============ */
+/* Header */
 .header {
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 16px;
@@ -242,7 +241,7 @@ body::after {
   font-size: 14px; direction: ltr;
 }
 
-/* ============ Main Menu ============ */
+/* Main Menu */
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -261,21 +260,8 @@ body::after {
   text-align: center;
 }
 .menu-card:active { transform: scale(0.97); }
-.menu-card::before {
-  content: ''; position: absolute;
-  top: -50%; right: -50%;
-  width: 200%; height: 200%;
-  background: radial-gradient(circle, rgba(245,200,66,0.15), transparent 40%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.menu-card:hover::before { opacity: 1; }
-.menu-card .icon {
-  font-size: 36px; margin-bottom: 10px; display: block;
-}
-.menu-card .title {
-  font-size: 15px; font-weight: 900; margin-bottom: 3px;
-}
+.menu-card .icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.menu-card .title { font-size: 15px; font-weight: 900; margin-bottom: 3px; }
 .menu-card .desc { font-size: 10px; color: var(--dim); }
 .menu-card.primary {
   grid-column: span 2;
@@ -283,7 +269,7 @@ body::after {
   border-color: rgba(245,200,66,0.4);
 }
 
-/* ============ Buttons ============ */
+/* Buttons */
 .btn {
   padding: 14px; border-radius: 14px; border: none;
   font-family: inherit; font-size: 14px; font-weight: 900;
@@ -297,9 +283,8 @@ body::after {
 .btn.danger { background: linear-gradient(135deg, var(--red), #B91C1C); color: #FFF; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-/* ============ Game Board ============ */
+/* Game Board */
 .game-container { max-width: 480px; margin: 0 auto; }
-
 .game-status-bar {
   display: flex; align-items: center; justify-content: center;
   gap: 10px; padding: 12px;
@@ -389,10 +374,9 @@ body::after {
 .game-cell.x svg line { stroke: var(--gold); stroke-width: 11; stroke-linecap: round; }
 .game-cell.o svg circle { stroke: #FFF; stroke-width: 11; fill: none; }
 .game-cell.win-cell { background: rgba(245,200,66,0.25); }
-
 .game-actions { display: flex; gap: 10px; }
 
-/* ============ VS Screen ============ */
+/* VS Screen */
 .vs-screen {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.97);
@@ -412,11 +396,7 @@ body::after {
   from { transform: scale(0.7); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
-.vs-player {
-  text-align: center;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 12px;
-}
+.vs-player { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .vs-avatar {
   width: 90px; height: 90px;
   border-radius: 50%;
@@ -424,26 +404,14 @@ body::after {
   font-size: 40px; font-weight: 900;
   border: 3px solid rgba(255,255,255,0.15);
   background: linear-gradient(135deg, var(--surface-2), var(--surface));
-  position: relative;
 }
-.vs-player.p1 .vs-avatar {
-  border-color: var(--gold);
-  box-shadow: 0 0 30px rgba(245,200,66,0.4);
-  animation: vsP1 1s ease-in-out infinite;
-}
-.vs-player.p2 .vs-avatar {
-  border-color: var(--purple);
-  box-shadow: 0 0 30px rgba(168,85,247,0.4);
-  animation: vsP2 1s ease-in-out infinite;
-}
+.vs-player.p1 .vs-avatar { border-color: var(--gold); box-shadow: 0 0 30px rgba(245,200,66,0.4); animation: vsP1 1s ease-in-out infinite; }
+.vs-player.p2 .vs-avatar { border-color: var(--purple); box-shadow: 0 0 30px rgba(168,85,247,0.4); animation: vsP2 1s ease-in-out infinite; }
 @keyframes vsP1 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 @keyframes vsP2 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 .vs-name { font-size: 16px; font-weight: 900; }
-.vs-rank { font-size: 11px; color: var(--dim); }
 .vs-score { font-size: 13px; font-weight: 800; color: var(--gold); }
-.vs-middle {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
+.vs-middle { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .vs-text {
   font-size: 40px; font-weight: 900;
   background: linear-gradient(135deg, var(--gold), var(--red));
@@ -454,16 +422,10 @@ body::after {
   0%, 100% { transform: scale(1) rotate(-5deg); }
   50% { transform: scale(1.15) rotate(5deg); }
 }
-.vs-countdown {
-  font-size: 28px; font-weight: 900;
-  color: var(--gold); direction: ltr;
-}
-.vs-ready {
-  font-size: 12px; color: var(--dim);
-  letter-spacing: 3px; font-weight: 800;
-}
+.vs-countdown { font-size: 28px; font-weight: 900; color: var(--gold); direction: ltr; }
+.vs-ready { font-size: 12px; color: var(--dim); letter-spacing: 3px; font-weight: 800; }
 
-/* ============ Panels ============ */
+/* Panels */
 .panel {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -472,13 +434,9 @@ body::after {
   backdrop-filter: blur(15px);
   margin-bottom: 14px;
 }
-.panel h3 {
-  font-size: 16px; font-weight: 900; margin-bottom: 6px;
-  display: flex; align-items: center; gap: 8px;
-}
+.panel h3 { font-size: 16px; font-weight: 900; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
 .panel .desc { font-size: 12px; color: var(--dim); margin-bottom: 14px; }
 .panel-actions { display: flex; flex-direction: column; gap: 10px; }
-
 .room-code-input {
   width: 100%; padding: 16px;
   background: rgba(0,0,0,0.4);
@@ -492,7 +450,6 @@ body::after {
   outline: none;
 }
 .room-code-input:focus { border-color: var(--gold); }
-
 .room-code-display {
   background: linear-gradient(135deg, rgba(245,200,66,0.15), rgba(168,85,247,0.1));
   border: 1px solid rgba(245,200,66,0.4);
@@ -500,25 +457,17 @@ body::after {
   padding: 20px; text-align: center;
   margin-bottom: 14px;
 }
-.room-code-display .lbl {
-  font-size: 11px; color: var(--dim);
-  letter-spacing: 2px; margin-bottom: 8px;
-}
+.room-code-display .lbl { font-size: 11px; color: var(--dim); letter-spacing: 2px; margin-bottom: 8px; }
 .room-code-display .code {
   font-size: 36px; font-weight: 900;
   color: var(--gold); letter-spacing: 8px;
   font-family: monospace; direction: ltr;
   margin-bottom: 10px;
 }
-.status-badge {
-  display: inline-block;
-  padding: 4px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 800;
-}
+.status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; }
 .status-badge.waiting { background: rgba(245,200,66,0.15); color: var(--gold); }
 .status-badge.playing { background: rgba(34,197,94,0.15); color: var(--green); }
 .status-badge.finished { background: rgba(239,68,68,0.15); color: var(--red); }
-
 .copy-btn {
   background: rgba(0,0,0,0.4);
   border: 1px solid var(--border);
@@ -528,7 +477,7 @@ body::after {
   cursor: pointer; margin-top: 8px;
 }
 
-/* ============ Chat ============ */
+/* Chat */
 .chat-container {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -566,21 +515,9 @@ body::after {
   line-height: 1.4;
   word-break: break-word;
 }
-.chat-message.own {
-  background: rgba(245,200,66,0.1);
-  border: 1px solid rgba(245,200,66,0.2);
-}
-.chat-message .author {
-  color: var(--gold);
-  font-weight: 900;
-  font-size: 11px;
-  margin-left: 4px;
-}
-.chat-message .time {
-  color: var(--dim);
-  font-size: 9px;
-  margin-right: 4px;
-}
+.chat-message.own { background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.2); }
+.chat-message .author { color: var(--gold); font-weight: 900; font-size: 11px; margin-left: 4px; }
+.chat-message .time { color: var(--dim); font-size: 9px; margin-right: 4px; }
 .chat-input-row {
   display: flex; gap: 8px;
   padding: 12px;
@@ -606,9 +543,8 @@ body::after {
   font-family: inherit; font-size: 13px;
   cursor: pointer;
 }
-.chat-input-row button:active { transform: scale(0.95); }
 
-/* ============ Leaderboard ============ */
+/* Leaderboard */
 .lb-item {
   display: flex; align-items: center; gap: 12px;
   background: var(--surface);
@@ -618,19 +554,9 @@ body::after {
   margin-bottom: 8px;
   backdrop-filter: blur(15px);
 }
-.lb-item.rank-1 {
-  border-color: var(--gold);
-  box-shadow: 0 0 20px rgba(245,200,66,0.2);
-  background: linear-gradient(135deg, rgba(245,200,66,0.1), var(--surface));
-}
-.lb-item.rank-2 {
-  border-color: #C0C0C0;
-  background: linear-gradient(135deg, rgba(192,192,192,0.08), var(--surface));
-}
-.lb-item.rank-3 {
-  border-color: #CD7F32;
-  background: linear-gradient(135deg, rgba(205,127,50,0.08), var(--surface));
-}
+.lb-item.rank-1 { border-color: var(--gold); box-shadow: 0 0 20px rgba(245,200,66,0.2); background: linear-gradient(135deg, rgba(245,200,66,0.1), var(--surface)); }
+.lb-item.rank-2 { border-color: #C0C0C0; background: linear-gradient(135deg, rgba(192,192,192,0.08), var(--surface)); }
+.lb-item.rank-3 { border-color: #CD7F32; background: linear-gradient(135deg, rgba(205,127,50,0.08), var(--surface)); }
 .lb-rank {
   width: 36px; height: 36px;
   border-radius: 12px;
@@ -643,17 +569,11 @@ body::after {
 .lb-item.rank-2 .lb-rank { background: linear-gradient(135deg, #E5E7EB, #9CA3AF); color: #000; }
 .lb-item.rank-3 .lb-rank { background: linear-gradient(135deg, #CD7F32, #8B4513); color: #FFF; }
 .lb-info { flex: 1; min-width: 0; }
-.lb-name {
-  font-size: 13px; font-weight: 900;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
+.lb-name { font-size: 13px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lb-sub { font-size: 10px; color: var(--dim); }
-.lb-points {
-  font-size: 15px; font-weight: 900;
-  color: var(--gold); direction: ltr;
-}
+.lb-points { font-size: 15px; font-weight: 900; color: var(--gold); direction: ltr; }
 
-/* ============ Profile ============ */
+/* Profile */
 .profile-header {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -674,26 +594,15 @@ body::after {
 }
 .profile-name { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
 .profile-email { font-size: 12px; color: var(--dim); margin-bottom: 14px; }
-.profile-stats-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px; margin-top: 14px;
-}
-.profile-stat {
-  background: rgba(0,0,0,0.3);
-  border-radius: 12px;
-  padding: 12px 8px;
-  text-align: center;
-}
-.profile-stat .v {
-  font-size: 18px; font-weight: 900;
-  direction: ltr; margin-bottom: 4px;
-}
+.profile-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+.profile-stat { background: rgba(0,0,0,0.3); border-radius: 12px; padding: 12px 8px; text-align: center; }
+.profile-stat .v { font-size: 18px; font-weight: 900; direction: ltr; margin-bottom: 4px; }
 .profile-stat.w .v { color: var(--gold); }
 .profile-stat.l .v { color: var(--red); }
 .profile-stat.d .v { color: var(--text); }
 .profile-stat .l { font-size: 9px; color: var(--dim); font-weight: 800; letter-spacing: 1px; }
 
-/* ============ Match History ============ */
+/* Match History */
 .match-item {
   display: flex; align-items: center; gap: 12px;
   background: var(--surface);
@@ -703,37 +612,19 @@ body::after {
   margin-bottom: 8px;
   backdrop-filter: blur(10px);
 }
-.match-result {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.match-result.win {
-  background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(34,197,94,0.1));
-  border: 1px solid var(--green);
-}
-.match-result.loss {
-  background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(239,68,68,0.1));
-  border: 1px solid var(--red);
-}
-.match-result.draw {
-  background: linear-gradient(135deg, rgba(245,200,66,0.25), rgba(245,200,66,0.1));
-  border: 1px solid var(--gold);
-}
+.match-result { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.match-result.win { background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(34,197,94,0.1)); border: 1px solid var(--green); }
+.match-result.loss { background: linear-gradient(135deg, rgba(239,68,68,0.25), rgba(239,68,68,0.1)); border: 1px solid var(--red); }
+.match-result.draw { background: linear-gradient(135deg, rgba(245,200,66,0.25), rgba(245,200,66,0.1)); border: 1px solid var(--gold); }
 .match-info { flex: 1; min-width: 0; }
 .match-mode { font-size: 13px; font-weight: 900; margin-bottom: 2px; }
 .match-date { font-size: 10px; color: var(--dim); }
-.match-status {
-  font-size: 12px; font-weight: 900;
-  padding: 4px 10px; border-radius: 10px;
-}
+.match-status { font-size: 12px; font-weight: 900; padding: 4px 10px; border-radius: 10px; }
 .match-status.win { color: var(--green); background: rgba(34,197,94,0.15); }
 .match-status.loss { color: var(--red); background: rgba(239,68,68,0.15); }
 .match-status.draw { color: var(--gold); background: rgba(245,200,66,0.15); }
 
-/* ============ Bottom Nav ============ */
+/* Bottom Nav */
 .bottom-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -757,86 +648,7 @@ body::after {
 }
 .nav-btn .icon { font-size: 20px; }
 .nav-btn .label { font-size: 9px; font-weight: 800; }
-.nav-btn.active {
-  color: var(--gold);
-  background: rgba(245,200,66,0.1);
-}
-
-/* ============ Store Styles ============ */
-.store-categories { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
-.store-categories::-webkit-scrollbar { display: none; }
-.store-sub-filters { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
-.store-sub-filters::-webkit-scrollbar { display: none; }
-.store-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-.store-card {
-  position: relative;
-  background: rgba(22, 22, 32, 0.8);
-  border: 1px solid rgba(60, 60, 80, 0.4);
-  border-radius: 18px; padding: 12px;
-  transition: all 0.25s; overflow: hidden;
-  backdrop-filter: blur(10px);
-}
-.store-card:active { transform: scale(0.98); }
-.store-card.rarity-rare { border-color: rgba(59, 130, 246, 0.5); box-shadow: 0 0 20px rgba(59, 130, 246, 0.15); }
-.store-card.rarity-epic { border-color: rgba(168, 85, 247, 0.5); box-shadow: 0 0 24px rgba(168, 85, 247, 0.2); }
-.store-card.rarity-legendary {
-  border-color: rgba(245, 200, 66, 0.6);
-  box-shadow: 0 0 28px rgba(245, 200, 66, 0.25);
-  background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, rgba(22,22,32,0.9) 100%);
-}
-.store-card.owned { border-color: rgba(34, 197, 94, 0.5); }
-.store-card.using { border-color: var(--gold); box-shadow: 0 0 30px rgba(245, 200, 66, 0.4); }
-.store-preview {
-  border-radius: 14px; aspect-ratio: 1;
-  margin-bottom: 10px; position: relative; overflow: hidden;
-  background: #050505; border: 1px solid rgba(255,255,255,0.05);
-  display: flex; align-items: center; justify-content: center;
-}
-.store-preview img.svg-icon { width: 55%; height: 55%; object-fit: contain; filter: drop-shadow(0 0 12px currentColor); }
-.store-preview-xo { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; padding: 8px; }
-.store-preview-xo > div { display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); border-radius: 8px; padding: 12%; }
-.store-preview-xo svg { width: 100%; height: 100%; display: block; }
-.store-card .card-name { font-size: 14px; font-weight: 900; text-align: center; margin-bottom: 3px; }
-.store-card .card-rarity { text-align: center; font-size: 9px; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 8px; }
-.store-card .card-price { font-size: 14px; font-weight: 900; color: var(--gold); text-align: center; direction: ltr; margin-bottom: 10px; }
-.store-card.owned .card-price { color: var(--green); }
-.store-card-actions { display: flex; gap: 6px; }
-.store-card-actions button {
-  flex: 1; padding: 10px 4px; border-radius: 10px; border: none;
-  font-family: inherit; font-size: 11px; font-weight: 900;
-  cursor: pointer; transition: all 0.2s;
-}
-.store-card-actions button:active { transform: scale(0.95); }
-
-/* Skins CSS */
-.skin-gold .x svg line { stroke: #FFD700; stroke-width: 11; stroke-linecap: round; }
-.skin-gold .o svg circle { stroke: #FFF; stroke-width: 11; fill: none; }
-.skin-neon .x svg line { stroke: #22FF88; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 6px #22FF88); }
-.skin-neon .o svg circle { stroke: #BB55FF; stroke-width: 11; fill: none; filter: drop-shadow(0 0 6px #BB55FF); }
-.skin-fire .x svg line { stroke: #FF3300; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 8px #FF6600); }
-.skin-fire .o svg circle { stroke: #FFAA00; stroke-width: 11; fill: none; filter: drop-shadow(0 0 8px #FF6600); }
-.skin-ice .x svg line { stroke: #55DDFF; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 8px #55DDFF); }
-.skin-ice .o svg circle { stroke: #B8F0FF; stroke-width: 11; fill: none; filter: drop-shadow(0 0 8px #55DDFF); }
-.skin-toxic .x svg line { stroke: #AAFF00; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 8px #AAFF00); }
-.skin-toxic .o svg circle { stroke: #66DD00; stroke-width: 11; fill: none; filter: drop-shadow(0 0 8px #AAFF00); }
-.skin-royal .x svg line { stroke: #CC66FF; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 8px #CC66FF); }
-.skin-royal .o svg circle { stroke: #FFD700; stroke-width: 11; fill: none; filter: drop-shadow(0 0 8px #FFD700); }
-.skin-rainbow .x svg line { stroke: url(#rainbowGrad); stroke-width: 11; stroke-linecap: round; }
-.skin-rainbow .o svg circle { stroke: url(#rainbowGrad); stroke-width: 11; fill: none; }
-.skin-holo .x svg line { stroke: url(#holoGrad); stroke-width: 11; stroke-linecap: round; }
-.skin-holo .o svg circle { stroke: url(#holoGrad); stroke-width: 11; fill: none; }
-.skin-matrix .x svg line { stroke: #00FF41; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 6px #00FF41); }
-.skin-matrix .o svg circle { stroke: #00FF41; stroke-width: 11; fill: none; filter: drop-shadow(0 0 6px #00FF41); }
-.skin-chrome .x svg line { stroke: #E5E7EB; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(255,255,255,0.6)); }
-.skin-chrome .o svg circle { stroke: #9CA3AF; stroke-width: 11; fill: none; filter: drop-shadow(0 0 4px rgba(255,255,255,0.6)); }
-.skin-blood .x svg line { stroke: #DC2626; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 6px #DC2626); }
-.skin-blood .o svg circle { stroke: #991B1B; stroke-width: 11; fill: none; filter: drop-shadow(0 0 6px #DC2626); }
-.skin-diamond .x svg line { stroke: #A5F3FC; stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px #A5F3FC); }
-.skin-diamond .o svg circle { stroke: #67E8F9; stroke-width: 10; fill: none; filter: drop-shadow(0 0 10px #A5F3FC); }
-.skin-plasma .x svg line { stroke: #EC4899; stroke-width: 11; stroke-linecap: round; filter: drop-shadow(0 0 10px #EC4899); }
-.skin-plasma .o svg circle { stroke: #3B82F6; stroke-width: 11; fill: none; filter: drop-shadow(0 0 10px #3B82F6); }
-.skin-shadow .x svg line { stroke: #4B5563; stroke-width: 12; stroke-linecap: round; }
-.skin-shadow .o svg circle { stroke: #1F2937; stroke-width: 12; fill: none; }
+.nav-btn.active { color: var(--gold); background: rgba(245,200,66,0.1); }
 
 /* Toast */
 #toast {
@@ -872,10 +684,9 @@ body::after {
   animation: spin 1s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-
 .hidden { display: none !important; }
 .spacer { height: 90px; }
-</style>
+  </style>
 </head>
 <body>
 
@@ -903,17 +714,13 @@ body::after {
       <div class="auth-logo">XO</div>
       <h1>XO Game</h1>
       <p class="subtitle">Super Sipr ADON</p>
-
       <div class="auth-box">
         <div class="auth-error" id="auth-error"></div>
         <div class="auth-success" id="auth-success"></div>
-
         <div class="auth-tabs">
           <button class="auth-tab active" onclick="switchAuthTab('login')">دخول</button>
           <button class="auth-tab" onclick="switchAuthTab('register')">حساب جديد</button>
         </div>
-
-        <!-- Login -->
         <div id="login-form">
           <div class="form-group">
             <label>البريد الإلكتروني</label>
@@ -929,8 +736,6 @@ body::after {
             <a onclick="playAsGuest()">العب كضيف</a>
           </div>
         </div>
-
-        <!-- Register -->
         <div id="register-form" class="hidden">
           <div class="form-group">
             <label>الاسم</label>
@@ -946,8 +751,6 @@ body::after {
           </div>
           <button class="auth-submit" onclick="doRegister()">إنشاء حساب</button>
         </div>
-
-        <!-- Forgot Password -->
         <div id="forgot-form" class="hidden">
           <div class="form-group">
             <label>البريد الإلكتروني</label>
@@ -985,7 +788,6 @@ body::after {
       </div>
       <div class="user-points">⭐ <span id="menu-points">0</span></div>
     </div>
-
     <div class="menu-grid">
       <div class="menu-card primary" onclick="goScreen('ai-setup')">
         <div class="icon">🎮</div>
@@ -1042,15 +844,9 @@ body::after {
       <h3>🎮 اختر مستوى البوت</h3>
       <p class="desc">كل مستوى يعطيك نقاط مختلفة</p>
       <div class="panel-actions">
-        <button class="btn secondary" onclick="startAI('easy')">
-          🟢 سهل — 20 نقطة للفوز
-        </button>
-        <button class="btn secondary" onclick="startAI('medium')">
-          🟡 متوسط — 35 نقطة للفوز
-        </button>
-        <button class="btn secondary" onclick="startAI('hard')">
-          🔴 صعب — 60 نقطة للفوز
-        </button>
+        <button class="btn secondary" onclick="startAI('easy')">🟢 سهل — 20 نقطة للفوز</button>
+        <button class="btn secondary" onclick="startAI('medium')">🟡 متوسط — 35 نقطة للفوز</button>
+        <button class="btn secondary" onclick="startAI('hard')">🔴 صعب — 60 نقطة للفوز</button>
       </div>
     </div>
   </div>
@@ -1063,26 +859,14 @@ body::after {
         <div class="status-vs">VS</div>
         <div class="status-player" id="status-p2">🤖 البوت</div>
       </div>
-
       <div class="score-bar">
-        <div class="score-item win">
-          <div class="val" id="score-win">0</div>
-          <div class="lbl">فوز</div>
-        </div>
+        <div class="score-item win"><div class="val" id="score-win">0</div><div class="lbl">فوز</div></div>
         <div class="score-divider"></div>
-        <div class="score-item draw">
-          <div class="val" id="score-draw">0</div>
-          <div class="lbl">تعادل</div>
-        </div>
+        <div class="score-item draw"><div class="val" id="score-draw">0</div><div class="lbl">تعادل</div></div>
         <div class="score-divider"></div>
-        <div class="score-item loss">
-          <div class="val" id="score-loss">0</div>
-          <div class="lbl">خسارة</div>
-        </div>
+        <div class="score-item loss"><div class="val" id="score-loss">0</div><div class="lbl">خسارة</div></div>
       </div>
-
       <div class="game-board skin-gold" id="game-board"></div>
-
       <div class="game-actions">
         <button class="btn secondary" onclick="newRound()">🔄 جولة جديدة</button>
         <button class="btn danger" onclick="quitGame()">🚪 خروج</button>
@@ -1090,14 +874,14 @@ body::after {
     </div>
     <div class="spacer"></div>
   </div>
-    <!-- ============ ONLINE SCREEN ============ -->
+
+  <!-- ============ ONLINE SCREEN ============ -->
   <div class="screen" id="screen-online">
     <div class="header">
       <button class="header-back" onclick="goScreen('menu')">←</button>
       <div class="header-title">اللعب أونلاين</div>
       <div class="header-right"></div>
     </div>
-
     <div id="online-start">
       <div class="panel">
         <h3>🌐 العب مع صديق</h3>
@@ -1109,7 +893,6 @@ body::after {
         </div>
       </div>
     </div>
-
     <div id="online-join" class="hidden">
       <div class="panel">
         <h3>🔍 انضم لغرفة</h3>
@@ -1122,7 +905,6 @@ body::after {
         </div>
       </div>
     </div>
-
     <div id="online-room" class="hidden">
       <div class="room-code-display">
         <div class="lbl">كود الغرفة</div>
@@ -1131,27 +913,20 @@ body::after {
         <br>
         <button class="copy-btn" onclick="copyRoomCode()">📋 نسخ الكود</button>
       </div>
-
       <div class="game-status-bar" id="online-status" style="display:none;">
         <div class="status-player" id="online-p1">👤 لاعب 1</div>
         <div class="status-vs">VS</div>
         <div class="status-player" id="online-p2">👤 لاعب 2</div>
       </div>
-
       <div class="game-board" id="online-board" style="display:none;"></div>
-
       <div class="chat-container" id="room-chat" style="display:none;">
-        <div class="chat-header">
-          💬 شات الغرفة
-          <span class="badge" id="room-chat-count">0</span>
-        </div>
+        <div class="chat-header">💬 شات الغرفة <span class="badge" id="room-chat-count">0</span></div>
         <div class="chat-messages" id="room-chat-messages"></div>
         <div class="chat-input-row">
           <input type="text" id="room-chat-input" placeholder="اكتب رسالة..." maxlength="200">
           <button onclick="sendRoomChat()">إرسال</button>
         </div>
       </div>
-
       <div class="game-actions" style="margin-top:14px;">
         <button class="btn secondary hidden" id="online-restart-btn" onclick="restartOnline()">🔄 جولة جديدة</button>
         <button class="btn danger" onclick="leaveRoom()">🚪 خروج</button>
@@ -1263,6 +1038,50 @@ body::after {
   </div>
 </div>
 
+<!-- ============ PURCHASE MODAL ============ -->
+<div class="modal" id="purchase-modal">
+  <div class="modal-box">
+    <div class="modal-icon" id="purchase-icon">🎨</div>
+    <div class="modal-title">تأكيد الشراء</div>
+    <div class="modal-sub">هل تريد شراء هذا العنصر؟</div>
+    <div class="modal-info">
+      <div class="modal-row"><span class="label">العنصر</span><span class="value" id="purchase-item">—</span></div>
+      <div class="modal-row"><span class="label">السعر</span><span class="value gold" id="purchase-price">—</span></div>
+      <div class="modal-row"><span class="label">رصيدك</span><span class="value green" id="purchase-balance">—</span></div>
+      <div class="modal-row"><span class="label">بعد الشراء</span><span class="value" id="purchase-after">—</span></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closePurchase()">إلغاء</button>
+      <button class="modal-confirm" id="purchase-confirm">تأكيد الشراء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TRY MODAL ============ -->
+<div class="try-modal" id="try-modal">
+  <div class="try-modal-box">
+    <div class="try-modal-title" id="try-title">معاينة</div>
+    <div class="try-modal-sub" id="try-sub"></div>
+    <div id="try-preview-container"></div>
+    <button class="try-close" onclick="closeTry()">إغلاق</button>
+  </div>
+</div>
+
+<!-- ============ CRATE MODAL ============ -->
+<div class="crate-modal" id="crate-modal">
+  <div class="crate-particles" id="crate-particles"></div>
+  <div class="crate-box" id="crate-box">
+    <div class="crate-stage-shake" id="stage-shake">
+      <div class="crate-anim" id="crate-anim">📦</div>
+      <div class="crate-hint">فتح الصندوق...</div>
+    </div>
+    <div class="crate-stage-result" id="stage-result">
+      <div class="reward-halo" id="reward-halo"></div>
+      <div class="reward-content" id="reward-content"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ LOADING ============ -->
 <div class="loading-overlay" id="loading">
   <div class="loading-spinner"></div>
@@ -1288,13 +1107,180 @@ body::after {
 </div>
 
 <div id="toast"></div>
-
 <script>
 // ============================================================
 // CONFIG
 // ============================================================
 const SERVER_URL = window.location.origin;
 const WS_URL = SERVER_URL.replace('https://', 'wss://').replace('http://', 'ws://');
+
+// ============================================================
+// ICONIFY ICONS
+// ============================================================
+function iconify(name, color) {
+  return `https://api.iconify.design/${name}.svg?color=%23${color}`;
+}
+const ICONS = {
+  effects: {
+    fireworks: { url: iconify('icon-park-twotone:fireworks', 'FF6B6B'), color: '#FF6B6B' },
+    lightning: { url: iconify('fa:bolt', 'FBBF24'), color: '#FBBF24' },
+    snow:      { url: iconify('game-icons:snowflake-1', 'A5F3FC'), color: '#A5F3FC' },
+    boom:      { url: iconify('game-icons:explosion-rays', 'F97316'), color: '#F97316' },
+    confetti:  { url: iconify('game-icons:party-popper', 'EC4899'), color: '#EC4899' },
+  },
+  avatars: {
+    wolf:     { url: iconify('game-icons:wolf-head', 'E5E7EB'), color: '#E5E7EB' },
+    dragon:   { url: iconify('game-icons:dragon-head', 'A855F7'), color: '#A855F7' },
+    falcon:   { url: iconify('game-icons:falcon-moon', 'D97706'), color: '#D97706' },
+    lion:     { url: iconify('game-icons:lion', 'F59E0B'), color: '#F59E0B' },
+    tiger:    { url: iconify('game-icons:tiger', 'F97316'), color: '#F97316' },
+    scorpion: { url: iconify('game-icons:scorpion', 'FBBF24'), color: '#FBBF24' },
+  },
+  badges: {
+    first_win: { url: iconify('game-icons:medal', 'D4AF37'), color: '#D4AF37' },
+    ten_wins:  { url: iconify('game-icons:trophy', 'FFD700'), color: '#FFD700' },
+    streak5:   { url: iconify('game-icons:fire', 'EF4444'), color: '#EF4444' },
+    hundred:   { url: iconify('emojione:hundred-points', '22D3EE'), color: '#22D3EE' },
+    perfect:   { url: iconify('game-icons:star-swirl', 'F5C842'), color: '#F5C842' },
+    streak10:  { url: iconify('game-icons:crown', 'F5C842'), color: '#F5C842' },
+  },
+  boosters: {
+    time:    { url: iconify('game-icons:stopwatch', '22D3EE'), color: '#22D3EE' },
+    shield:  { url: iconify('game-icons:shield', '3B82F6'), color: '#3B82F6' },
+    double:  { url: iconify('game-icons:doubled', 'A855F7'), color: '#A855F7' },
+    recover: { url: iconify('game-icons:cycle', '22C55E'), color: '#22C55E' },
+  },
+  crates: {
+    bronze:    { url: iconify('game-icons:wooden-crate', 'CD7F32'), color: '#CD7F32' },
+    silver:    { url: iconify('game-icons:present', 'C0C0C0'), color: '#C0C0C0' },
+    gold:      { url: iconify('game-icons:present', 'FFD700'), color: '#FFD700' },
+    legendary: { url: iconify('game-icons:treasure-map', 'A855F7'), color: '#A855F7' },
+  },
+  sounds: {
+    win:   { url: iconify('game-icons:musical-notes', '22C55E'), color: '#22C55E' },
+    click: { url: iconify('game-icons:click', 'F5C842'), color: '#F5C842' },
+    lose:  { url: iconify('game-icons:broken-bone', 'EF4444'), color: '#EF4444' },
+  },
+};
+
+// ============================================================
+// STORE DATA (Unified - all 11 categories)
+// ============================================================
+const STORE_DATA = {
+  skins: { icon: '🎨', name: 'الأشكال', hasUse: true, items: [
+    { id: 'gold', name: 'ذهبي', price: 0, rarity: 'common' },
+    { id: 'chrome', name: 'كروم', price: 200, rarity: 'common' },
+    { id: 'neon', name: 'نيون', price: 300, rarity: 'rare' },
+    { id: 'blood', name: 'دم', price: 400, rarity: 'rare' },
+    { id: 'toxic', name: 'سام', price: 400, rarity: 'rare' },
+    { id: 'ice', name: 'ثلج', price: 500, rarity: 'epic' },
+    { id: 'fire', name: 'ناري', price: 600, rarity: 'epic' },
+    { id: 'matrix', name: 'ماتريكس', price: 700, rarity: 'epic' },
+    { id: 'plasma', name: 'بلازما', price: 800, rarity: 'epic' },
+    { id: 'royal', name: 'ملكي', price: 900, rarity: 'legendary' },
+    { id: 'diamond', name: 'ماسي', price: 1000, rarity: 'legendary' },
+    { id: 'shadow', name: 'ظل', price: 1100, rarity: 'legendary' },
+    { id: 'holo', name: 'هولوغرامي', price: 1200, rarity: 'legendary' },
+    { id: 'rainbow', name: 'قوس قزح', price: 1500, rarity: 'legendary' },
+  ]},
+  backgrounds: { icon: '🌌', name: 'الخلفيات', hasUse: true, items: [
+    { id: 'bg1', name: 'بنفسجي', price: 0, rarity: 'common' },
+    { id: 'bg2', name: 'أحمر', price: 100, rarity: 'common' },
+    { id: 'bg3', name: 'أخضر', price: 100, rarity: 'common' },
+    { id: 'bg4', name: 'أزرق', price: 100, rarity: 'common' },
+    { id: 'bg5', name: 'ذهبي', price: 150, rarity: 'common' },
+    { id: 'bg6', name: 'شبكة نيون', price: 200, rarity: 'rare' },
+    { id: 'bg7', name: 'نقاط', price: 200, rarity: 'rare' },
+    { id: 'bg8', name: 'نجوم', price: 250, rarity: 'rare' },
+    { id: 'bg9', name: 'موجة', price: 250, rarity: 'rare' },
+    { id: 'bg10', name: 'نبض', price: 300, rarity: 'rare' },
+    { id: 'bg11', name: 'ريترو', price: 300, rarity: 'epic' },
+    { id: 'bg12', name: 'فضاء', price: 350, rarity: 'epic' },
+    { id: 'bg13', name: 'قطري', price: 350, rarity: 'epic' },
+    { id: 'bg14', name: 'موجة ضوئية', price: 400, rarity: 'epic' },
+    { id: 'bg15', name: 'بلازما', price: 500, rarity: 'epic' },
+    { id: 'bg16', name: 'قوس قزح', price: 700, rarity: 'legendary' },
+    { id: 'bg18', name: 'موجات ملونة', price: 900, rarity: 'legendary' },
+  ]},
+  titles: { icon: '🏷️', name: 'الألقاب', hasUse: true, items: [
+    { id: 'king', name: 'الملك', price: 500, rarity: 'rare' },
+    { id: 'legend', name: 'الأسطورة', price: 800, rarity: 'epic' },
+    { id: 'thunder', name: 'الصاعقة', price: 600, rarity: 'rare' },
+    { id: 'gem', name: 'الجوهرة', price: 700, rarity: 'epic' },
+    { id: 'star', name: 'النجم', price: 500, rarity: 'rare' },
+    { id: 'falcon', name: 'الصقر', price: 600, rarity: 'rare' },
+    { id: 'wolf', name: 'الذئب الأبيض', price: 1000, rarity: 'legendary' },
+    { id: 'sniper', name: 'القناص', price: 900, rarity: 'epic' },
+  ]},
+  frames: { icon: '🖼️', name: 'الإطارات', hasUse: true, items: [
+    { id: 'silver', name: 'فضي', price: 300, rarity: 'rare' },
+    { id: 'gold', name: 'ذهبي', price: 500, rarity: 'epic' },
+    { id: 'fire', name: 'ناري', price: 700, rarity: 'epic' },
+    { id: 'ice', name: 'جليدي', price: 700, rarity: 'epic' },
+    { id: 'purple', name: 'بنفسجي', price: 600, rarity: 'epic' },
+    { id: 'diamond', name: 'ماسي', price: 1000, rarity: 'legendary' },
+  ]},
+  effects: { icon: '✨', name: 'المؤثرات', hasUse: true, items: [
+    { id: 'fireworks', name: 'ألعاب نارية', price: 400, rarity: 'rare' },
+    { id: 'lightning', name: 'برق', price: 500, rarity: 'rare' },
+    { id: 'snow', name: 'ثلج', price: 500, rarity: 'rare' },
+    { id: 'boom', name: 'انفجار', price: 600, rarity: 'epic' },
+    { id: 'confetti', name: 'كونفيتي', price: 400, rarity: 'rare' },
+  ]},
+  avatars: { icon: '🎭', name: 'الشخصيات', hasUse: true, items: [
+    { id: 'wolf', name: 'ذئب', price: 600, rarity: 'rare' },
+    { id: 'dragon', name: 'تنين', price: 800, rarity: 'epic' },
+    { id: 'falcon', name: 'صقر', price: 700, rarity: 'epic' },
+    { id: 'lion', name: 'أسد', price: 700, rarity: 'epic' },
+    { id: 'tiger', name: 'نمر', price: 800, rarity: 'epic' },
+    { id: 'scorpion', name: 'عقرب', price: 900, rarity: 'legendary' },
+  ]},
+  badges: { icon: '🏅', name: 'الشارات', hasUse: false, items: [
+    { id: 'first_win', name: 'أول فوز', price: 300, rarity: 'rare' },
+    { id: 'ten_wins', name: '10 مرات فوز', price: 500, rarity: 'rare' },
+    { id: 'streak5', name: '5 جولات متتالية', price: 700, rarity: 'epic' },
+    { id: 'streak10', name: '10 جولات بدون خسارة', price: 1500, rarity: 'legendary' },
+    { id: 'hundred', name: '100 نقطة', price: 400, rarity: 'rare' },
+    { id: 'perfect', name: 'لاعب مثالي', price: 1000, rarity: 'legendary' },
+  ]},
+  boards: { icon: '🎯', name: 'أنماط اللوحة', hasUse: true, items: [
+    { id: 'wood', name: 'خشبي', price: 300, rarity: 'rare' },
+    { id: 'neon', name: 'نيون', price: 500, rarity: 'epic' },
+    { id: 'space', name: 'فضائي', price: 700, rarity: 'epic' },
+    { id: 'diamond', name: 'ماسي', price: 800, rarity: 'legendary' },
+  ]},
+  boosters: { icon: '⚡', name: 'المعززات', hasUse: false, items: [
+    { id: 'time', name: 'وقت إضافي', price: 300, rarity: 'rare' },
+    { id: 'shield', name: 'حماية', price: 500, rarity: 'epic' },
+    { id: 'double', name: 'مضاعف نقاط', price: 700, rarity: 'epic' },
+    { id: 'recover', name: 'استعادة حركة', price: 400, rarity: 'rare' },
+  ]},
+  sounds: { icon: '🔔', name: 'الأصوات', hasUse: true, items: [
+    { id: 'win', name: 'صوت فوز', price: 300, rarity: 'rare' },
+    { id: 'click', name: 'صوت ضغط', price: 200, rarity: 'common' },
+    { id: 'lose', name: 'صوت خسارة', price: 300, rarity: 'rare' },
+  ]},
+  crates: { icon: '🎁', name: 'صناديق الحظ', hasUse: false, items: [
+    { id: 'bronze', name: 'صندوق برونزي', price: 200, rarity: 'common' },
+    { id: 'silver', name: 'صندوق فضي', price: 500, rarity: 'rare' },
+    { id: 'gold', name: 'صندوق ذهبي', price: 1000, rarity: 'epic' },
+    { id: 'legendary', name: 'صندوق أسطوري', price: 2500, rarity: 'legendary' },
+  ]},
+};
+
+const RARITY_NAMES = { common: 'شائع', rare: 'نادر', epic: 'ملحمي', legendary: 'أسطوري' };
+const RARITY_COLORS = { common: '#8A8A95', rare: '#3B82F6', epic: '#A855F7', legendary: '#F5C842' };
+const RARITY_PROBS = {
+  bronze:    { common: 70, rare: 25, epic: 4,  legendary: 1 },
+  silver:    { common: 40, rare: 40, epic: 15, legendary: 5 },
+  gold:      { common: 10, rare: 40, epic: 35, legendary: 15 },
+  legendary: { common: 0,  rare: 20, epic: 45, legendary: 35 },
+};
+const CATEGORY_NAMES = {
+  skins: 'الأشكال', backgrounds: 'الخلفيات', titles: 'الألقاب', frames: 'الإطارات',
+  effects: 'المؤثرات', avatars: 'الشخصيات', badges: 'الشارات', boards: 'أنماط اللوحة',
+  boosters: 'المعززات', sounds: 'الأصوات', crates: 'صناديق الحظ',
+};
 
 // ============================================================
 // STATE
@@ -1319,12 +1305,9 @@ let state = {
   },
   globalWs: null,
   isOnline: false,
-  store: {
-    currentCat: 'skins',
-    currentFilter: 'all',
-    data: null,
-    pendingPurchase: null,
-  },
+  store: { currentCat: 'skins', currentFilter: 'all', pendingPurchase: null },
+  storeOwned: { skins: ['gold'], backgrounds: ['bg1'], titles: [], frames: [], effects: [], avatars: [], badges: [], boards: [], boosters: [], sounds: [], crates: [] },
+  storeCurrent: { skins: 'gold', backgrounds: 'bg1', titles: null, frames: null, effects: null, avatars: null, boards: null, sounds: null },
 };
 
 const X_SVG = '<svg viewBox="0 0 100 100" fill="none"><line x1="22" y1="22" x2="78" y2="78"/><line x1="78" y1="22" x2="22" y2="78"/></svg>';
@@ -1365,6 +1348,16 @@ function loadState() {
     const s = localStorage.getItem('xo_user');
     state.user = s ? JSON.parse(s) : null;
     state.isGuest = localStorage.getItem('xo_guest') === '1';
+    const owned = localStorage.getItem('xo_store_owned');
+    const current = localStorage.getItem('xo_store_current');
+    if (owned) state.storeOwned = JSON.parse(owned);
+    if (current) state.storeCurrent = JSON.parse(current);
+  } catch(e) {}
+}
+function saveStoreLocal() {
+  try {
+    localStorage.setItem('xo_store_owned', JSON.stringify(state.storeOwned));
+    localStorage.setItem('xo_store_current', JSON.stringify(state.storeCurrent));
   } catch(e) {}
 }
 function clearState() {
@@ -1402,7 +1395,7 @@ function goScreen(name) {
 }
 
 // ============================================================
-// Toast & Loading
+// Toast / Loading
 // ============================================================
 function toast(msg, type = '') {
   const t = document.getElementById('toast');
@@ -1413,19 +1406,15 @@ function toast(msg, type = '') {
 function loading(show) {
   document.getElementById('loading').classList.toggle('show', show);
 }
-
-// ============================================================
-// Connection Indicator
-// ============================================================
 function setConnected(online) {
   state.isOnline = online;
   const el = document.getElementById('conn-indicator');
-  el.classList.toggle('show', true);
+  el.classList.add('show');
   el.classList.toggle('offline', !online);
 }
 setInterval(async () => {
   try {
-    const res = await fetch(SERVER_URL + '/health', { method: 'GET' });
+    const res = await fetch(SERVER_URL + '/health');
     setConnected(res.ok);
   } catch (e) { setConnected(false); }
 }, 15000);
@@ -1569,22 +1558,19 @@ function startAI(difficulty) {
     { name: state.user.name || 'أنت', avatar: (state.user.name || 'A')[0].toUpperCase(), score: state.user.wins || 0 },
     { name: 'بوت ' + botName, avatar: difficulty === 'hard' ? '🔴' : difficulty === 'medium' ? '🟡' : '🟢', score: 0 },
     () => {
-      applySkinToBoard('game-board', state.user.current_skin || 'gold');
+      applySkinToBoard('game-board', state.storeCurrent.skins || 'gold');
       buildGameBoard();
       newRound();
       goScreen('game');
     }
   );
 }
-
 function applySkinToBoard(boardId, skinId) {
   const board = document.getElementById(boardId);
   if (!board) return;
-  // Remove old skin classes
   board.className = board.className.split(' ').filter(c => !c.startsWith('skin-')).join(' ');
   board.classList.add('skin-' + skinId);
 }
-
 function showVsScreen(p1, p2, callback) {
   document.getElementById('vs-avatar1').textContent = p1.avatar;
   document.getElementById('vs-name1').textContent = p1.name;
@@ -1592,10 +1578,8 @@ function showVsScreen(p1, p2, callback) {
   document.getElementById('vs-avatar2').textContent = p2.avatar;
   document.getElementById('vs-name2').textContent = p2.name;
   document.getElementById('vs-score2').textContent = (p2.score || 0) + ' فوز';
-
   const vsScreen = document.getElementById('vs-screen');
   vsScreen.classList.add('show');
-
   let count = 3;
   document.getElementById('vs-countdown').textContent = count;
   const timer = setInterval(() => {
@@ -1609,7 +1593,6 @@ function showVsScreen(p1, p2, callback) {
     }
   }, 800);
 }
-
 function buildGameBoard() {
   const board = document.getElementById('game-board');
   board.innerHTML = '';
@@ -1621,7 +1604,6 @@ function buildGameBoard() {
     board.appendChild(cell);
   }
 }
-
 function newRound() {
   state.game.board = [' ',' ',' ',' ',' ',' ',' ',' ',' '];
   state.game.gameOver = false;
@@ -1629,7 +1611,6 @@ function newRound() {
   state.game.lastMove = -1;
   state.game.winLine = null;
   state.game.moves = [];
-
   if (state.game.mode === 'ai') {
     state.game.playerSymbol = Math.random() < 0.5 ? 'X' : 'O';
     state.game.aiSymbol = state.game.playerSymbol === 'X' ? 'O' : 'X';
@@ -1637,16 +1618,13 @@ function newRound() {
   } else {
     state.game.turn = 'X';
   }
-
   renderGame();
   updateGameStatus();
-
   if (state.game.mode === 'ai' && state.game.turn === state.game.aiSymbol) {
     state.game.aiThinking = true;
     setTimeout(aiPlay, 500);
   }
 }
-
 function renderGame() {
   const cells = document.querySelectorAll('#game-board .game-cell');
   cells.forEach((cell, i) => {
@@ -1662,7 +1640,6 @@ function renderGame() {
     if (state.game.winLine && state.game.winLine.includes(i)) cell.classList.add('win-cell');
   });
 }
-
 function updateGameStatus() {
   const p1 = document.getElementById('status-p1');
   const p2 = document.getElementById('status-p2');
@@ -1678,22 +1655,18 @@ function updateGameStatus() {
     p2.classList.toggle('active', state.game.turn === 'O');
   }
 }
-
 function gameClick(i) {
   if (state.game.gameOver || state.game.aiThinking) return;
   if (state.game.mode === 'ai' && state.game.turn !== state.game.playerSymbol) return;
   if (state.game.board[i] !== ' ') return;
-
   const sym = state.game.mode === 'ai' ? state.game.playerSymbol : state.game.turn;
   state.game.board[i] = sym;
   state.game.lastMove = i;
   state.game.moves.push(i);
   renderGame();
-
   const win = checkWin(state.game.board, sym);
   if (win) return finishGame(state.game.mode === 'ai' ? (sym === state.game.playerSymbol ? 'win' : 'loss') : 'win', win);
   if (!state.game.board.includes(' ')) return finishGame('draw');
-
   if (state.game.mode === 'ai') {
     state.game.turn = state.game.aiSymbol;
     state.game.aiThinking = true;
@@ -1704,14 +1677,12 @@ function gameClick(i) {
     updateGameStatus();
   }
 }
-
 function checkWin(board, player) {
   for (const c of WIN_CONDS) {
     if (board[c[0]] === player && board[c[1]] === player && board[c[2]] === player) return c;
   }
   return null;
 }
-
 function aiPlay() {
   if (state.game.gameOver) { state.game.aiThinking = false; return; }
   const action = aiChooseAction(state.game.board, state.game.aiSymbol, state.game.playerSymbol, state.game.difficulty);
@@ -1721,21 +1692,18 @@ function aiPlay() {
   state.game.moves.push(action);
   state.game.aiThinking = false;
   renderGame();
-
   const win = checkWin(state.game.board, state.game.aiSymbol);
   if (win) return finishGame('loss', win);
   if (!state.game.board.includes(' ')) return finishGame('draw');
   state.game.turn = state.game.playerSymbol;
   updateGameStatus();
 }
-
 function aiChooseAction(board, aiSym, playerSym, difficulty) {
   const avail = [];
   for (let i = 0; i < 9; i++) if (board[i] === ' ') avail.push(i);
   if (!avail.length) return -1;
   if (difficulty === 'easy') return avail[Math.floor(Math.random() * avail.length)];
   if (difficulty === 'medium' && Math.random() < 0.4) return avail[Math.floor(Math.random() * avail.length)];
-
   function minimax(b, depth, isMax, alpha, beta) {
     const w = checkWin(b, aiSym); if (w) return 10 - depth;
     const l = checkWin(b, playerSym); if (l) return depth - 10;
@@ -1766,7 +1734,6 @@ function aiChooseAction(board, aiSym, playerSym, difficulty) {
       return best;
     }
   }
-
   let bestScore = -Infinity, bestMoves = [];
   for (const a of avail) {
     board[a] = aiSym;
@@ -1777,21 +1744,16 @@ function aiChooseAction(board, aiSym, playerSym, difficulty) {
   }
   return bestMoves[Math.floor(Math.random() * bestMoves.length)];
 }
-
 async function finishGame(result, winLine) {
   state.game.gameOver = true;
   state.game.aiThinking = false;
-
   if (result === 'win') state.game.scores.win++;
   else if (result === 'loss') state.game.scores.loss++;
   else state.game.scores.draw++;
-
   document.getElementById('score-win').textContent = state.game.scores.win;
   document.getElementById('score-draw').textContent = state.game.scores.draw;
   document.getElementById('score-loss').textContent = state.game.scores.loss;
-
   if (winLine) { state.game.winLine = winLine; renderGame(); }
-
   if (result === 'win') {
     confetti({ particleCount: 150, spread: 90, origin: { y: 0.5 }, colors: ['#FFD700', '#F5C842', '#FFF'] });
     toast('🎉 فوز رائع!', 'success');
@@ -1800,8 +1762,6 @@ async function finishGame(result, winLine) {
   } else {
     toast('🤝 تعادل!');
   }
-
-  // 🔥 حفظ المباراة على السيرفر
   if (state.game.mode === 'ai' && state.user && !state.isGuest && state.token) {
     try {
       const res = await api('/api/matches/record-ai', 'POST', {
@@ -1821,13 +1781,11 @@ async function finishGame(result, winLine) {
       }
     } catch(e) { console.error('Failed to save match', e); }
   }
-
   setTimeout(() => {
     if (!state.game.gameOver) return;
     newRound();
   }, 2500);
 }
-
 function quitGame() { goScreen('menu'); }
 
 // ============================================================
@@ -1838,13 +1796,11 @@ function goOnlineStart() {
   document.getElementById('online-join').classList.add('hidden');
   document.getElementById('online-room').classList.add('hidden');
 }
-
 function showJoinForm() {
   document.getElementById('online-start').classList.add('hidden');
   document.getElementById('online-join').classList.remove('hidden');
   document.getElementById('join-code-input').focus();
 }
-
 async function createRoom(isParty = false) {
   if (!state.user) { toast('سجل أول', 'error'); return; }
   loading(true);
@@ -1863,7 +1819,6 @@ async function createRoom(isParty = false) {
   showRoomUI();
   connectRoomWs();
 }
-
 async function joinRoom(asSpectator = false) {
   const code = document.getElementById('join-code-input').value.trim().toUpperCase();
   if (code.length !== 6) { toast('الكود 6 أحرف', 'error'); return; }
@@ -1884,39 +1839,31 @@ async function joinRoom(asSpectator = false) {
   showRoomUI();
   connectRoomWs();
 }
-
 function showRoomUI() {
   document.getElementById('online-start').classList.add('hidden');
   document.getElementById('online-join').classList.add('hidden');
   document.getElementById('online-room').classList.remove('hidden');
   document.getElementById('room-code').textContent = state.online.code;
   updateRoomStatusBadge();
-  applySkinToBoard('online-board', state.user.current_skin || 'gold');
+  applySkinToBoard('online-board', state.storeCurrent.skins || 'gold');
 }
-
 function updateRoomStatusBadge() {
   const el = document.getElementById('room-status');
   if (state.online.status === 'waiting') { el.textContent = 'في الانتظار...'; el.className = 'status-badge waiting'; }
   else if (state.online.status === 'playing') { el.textContent = 'اللعبة جارية'; el.className = 'status-badge playing'; }
   else { el.textContent = 'انتهت'; el.className = 'status-badge finished'; }
 }
-
 function copyRoomCode() {
   navigator.clipboard?.writeText(state.online.code);
   toast('📋 تم نسخ الكود', 'success');
 }
-
 function connectRoomWs() {
   const url = `${WS_URL}/ws/${state.online.code}/${state.user.id}`;
   state.online.ws = new WebSocket(url);
-  state.online.ws.onopen = () => console.log('WS open');
   state.online.ws.onmessage = (e) => {
     try { handleRoomMessage(JSON.parse(e.data)); } catch(err) {}
   };
-  state.online.ws.onerror = (e) => console.error('WS error', e);
-  state.online.ws.onclose = () => console.log('WS closed');
 }
-
 function handleRoomMessage(msg) {
   if (msg.type === 'welcome' || msg.type === 'room_update') {
     const room = msg.room;
@@ -1925,14 +1872,12 @@ function handleRoomMessage(msg) {
     state.online.turn = room.turn;
     updateRoomStatusBadge();
     renderOnlineBoard(room);
-
     if (room.status === 'playing' || room.status === 'finished') {
       document.getElementById('online-board').style.display = 'grid';
       document.getElementById('online-status').style.display = 'flex';
       document.getElementById('room-chat').style.display = 'block';
       document.getElementById('online-restart-btn').classList.toggle('hidden', room.status !== 'finished');
     }
-
     document.getElementById('online-p1').textContent = '❌ ' + (room.host_name || 'لاعب');
     document.getElementById('online-p2').textContent = '⭕ ' + (room.guest_name || 'بانتظار...');
     document.getElementById('online-p1').classList.toggle('active', room.turn === 'X');
@@ -1942,7 +1887,6 @@ function handleRoomMessage(msg) {
   else if (msg.type === 'player_left') { toast('🔌 لاعب خرج', 'error'); }
   else if (msg.type === 'error') { toast('⚠️ ' + msg.message, 'error'); }
 }
-
 function renderOnlineBoard(room) {
   const board = document.getElementById('online-board');
   board.innerHTML = '';
@@ -1959,7 +1903,6 @@ function renderOnlineBoard(room) {
   });
   board.style.display = 'grid';
 }
-
 function onlineMove(i) {
   if (!state.online.ws || state.online.ws.readyState !== 1) return;
   if (state.online.role !== 'host' && state.online.role !== 'guest') {
@@ -1969,7 +1912,6 @@ function onlineMove(i) {
   if (state.online.turn !== myTurn) { toast('⏳ ليس دورك', 'error'); return; }
   state.online.ws.send(JSON.stringify({ type: 'move', index: i }));
 }
-
 function sendRoomChat() {
   const input = document.getElementById('room-chat-input');
   const text = input.value.trim();
@@ -1977,7 +1919,6 @@ function sendRoomChat() {
   state.online.ws.send(JSON.stringify({ type: 'chat', text }));
   input.value = '';
 }
-
 function appendRoomChat(msg) {
   const el = document.getElementById('room-chat-messages');
   const div = document.createElement('div');
@@ -1988,13 +1929,11 @@ function appendRoomChat(msg) {
   el.scrollTop = el.scrollHeight;
   document.getElementById('room-chat-count').textContent = el.children.length;
 }
-
 function restartOnline() {
   if (!state.online.ws || state.online.ws.readyState !== 1) return;
   state.online.ws.send(JSON.stringify({ type: 'restart' }));
   document.getElementById('online-restart-btn').classList.add('hidden');
 }
-
 function leaveRoom() {
   if (state.online.ws) { try { state.online.ws.close(); } catch(e){} state.online.ws = null; }
   state.online.code = null;
@@ -2021,7 +1960,6 @@ async function loadParties() {
     </div>
   `).join('');
 }
-
 function joinPartyAsSpectator(code) {
   document.getElementById('join-code-input').value = code;
   goScreen('online');
@@ -2088,15 +2026,15 @@ async function loadProfile() {
       <p class="desc">إجمالي المباريات: ${u.games || 0}</p>
     </div>
     <div class="panel">
-      <h3>🏪 متجر الأشكال</h3>
-      <p class="desc">الشكل الحالي: ${state.user.current_skin || 'gold'}</p>
+      <h3>🏪 المتجر</h3>
+      <p class="desc">الشكل الحالي: ${state.storeCurrent.skins || 'gold'}</p>
       <button class="btn primary" onclick="goScreen('store')">فتح المتجر</button>
     </div>
   `;
 }
 
 // ============================================================
-// MATCH HISTORY
+// HISTORY
 // ============================================================
 async function loadHistory() {
   if (!state.user) return;
@@ -2111,9 +2049,7 @@ async function loadHistory() {
     return;
   }
   el.innerHTML = res.data.map(m => {
-    let result = 'draw';
-    let resultText = 'تعادل';
-    let resultIcon = '🤝';
+    let result = 'draw', resultText = 'تعادل', resultIcon = '🤝';
     if (m.winner === 'X' && m.player_x === state.user.id) { result = 'win'; resultText = 'فوز'; resultIcon = '🏆'; }
     else if (m.winner === 'O' && m.player_o === state.user.id) { result = 'win'; resultText = 'فوز'; resultIcon = '🏆'; }
     else if (m.winner === 'X' && m.player_o === state.user.id) { result = 'loss'; resultText = 'خسارة'; resultIcon = '💔'; }
@@ -2137,7 +2073,6 @@ async function loadHistory() {
 // GLOBAL CHAT
 // ============================================================
 function showGlobalChat() { connectGlobalChat(); }
-
 function connectGlobalChat() {
   if (!state.user) return;
   if (state.globalWs && state.globalWs.readyState === 1) return;
@@ -2158,7 +2093,6 @@ function connectGlobalChat() {
     state.globalWs.onclose = () => { setTimeout(connectGlobalChat, 3000); };
   } catch(e) {}
 }
-
 function sendGlobalChat() {
   const input = document.getElementById('global-chat-input');
   const text = input.value.trim();
@@ -2168,7 +2102,6 @@ function sendGlobalChat() {
     input.value = '';
   }
 }
-
 function appendGlobalChat(msg) {
   const el = document.getElementById('global-chat-messages');
   const div = document.createElement('div');
@@ -2180,38 +2113,8 @@ function appendGlobalChat(msg) {
 }
 
 // ============================================================
-// STORE (Inside main app)
+// STORE - Full Featured
 // ============================================================
-const STORE_DATA = {
-  skins: { icon: '🎨', name: 'الأشكال', hasUse: true, items: [
-    { id: 'gold', name: 'ذهبي', price: 0, rarity: 'common' },
-    { id: 'chrome', name: 'كروم', price: 200, rarity: 'common' },
-    { id: 'neon', name: 'نيون', price: 300, rarity: 'rare' },
-    { id: 'blood', name: 'دم', price: 400, rarity: 'rare' },
-    { id: 'toxic', name: 'سام', price: 400, rarity: 'rare' },
-    { id: 'ice', name: 'ثلج', price: 500, rarity: 'epic' },
-    { id: 'fire', name: 'ناري', price: 600, rarity: 'epic' },
-    { id: 'matrix', name: 'ماتريكس', price: 700, rarity: 'epic' },
-    { id: 'plasma', name: 'بلازما', price: 800, rarity: 'epic' },
-    { id: 'royal', name: 'ملكي', price: 900, rarity: 'legendary' },
-    { id: 'diamond', name: 'ماسي', price: 1000, rarity: 'legendary' },
-    { id: 'shadow', name: 'ظل', price: 1100, rarity: 'legendary' },
-    { id: 'holo', name: 'هولوغرامي', price: 1200, rarity: 'legendary' },
-    { id: 'rainbow', name: 'قوس قزح', price: 1500, rarity: 'legendary' },
-  ]},
-  titles: { icon: '🏷️', name: 'الألقاب', hasUse: true, items: [
-    { id: 'king', name: 'الملك', price: 500, rarity: 'rare' },
-    { id: 'legend', name: 'الأسطورة', price: 800, rarity: 'epic' },
-    { id: 'thunder', name: 'الصاعقة', price: 600, rarity: 'rare' },
-    { id: 'gem', name: 'الجوهرة', price: 700, rarity: 'epic' },
-    { id: 'star', name: 'النجم', price: 500, rarity: 'rare' },
-    { id: 'falcon', name: 'الصقر', price: 600, rarity: 'rare' },
-    { id: 'wolf', name: 'الذئب الأبيض', price: 1000, rarity: 'legendary' },
-    { id: 'sniper', name: 'القناص', price: 900, rarity: 'epic' },
-  ]},
-};
-const RARITY_NAMES = { common: 'شائع', rare: 'نادر', epic: 'ملحمي', legendary: 'أسطوري' };
-
 function initStore() {
   if (!state.user) return;
   document.getElementById('store-points').textContent = state.user.points || 0;
@@ -2246,6 +2149,7 @@ function buildStoreFilters() {
   el.innerHTML = '';
   const filters = [
     { key: 'all', name: 'الكل' },
+    { key: 'common', name: 'شائع' },
     { key: 'rare', name: 'نادر' },
     { key: 'epic', name: 'ملحمي' },
     { key: 'legendary', name: 'أسطوري' },
@@ -2265,13 +2169,35 @@ function buildStoreFilters() {
   });
 }
 
+function getStorePreview(item, catKey) {
+  if (catKey === 'skins') {
+    return `<div class="store-preview store-preview-xo skin-${item.id} pv-${item.id}">
+      <div class="x">${X_SVG}</div><div class="o">${O_SVG}</div>
+      <div class="o">${O_SVG}</div><div class="x">${X_SVG}</div>
+    </div>`;
+  }
+  if (catKey === 'backgrounds') return `<div class="store-preview ${item.id}"></div>`;
+  if (catKey === 'titles') return `<div class="store-preview"><div class="preview-title t-${item.id}">${item.name}</div></div>`;
+  if (catKey === 'frames') return `<div class="store-preview preview-frame"><div class="frame-${item.id}">👤</div></div>`;
+  if (catKey === 'boards') {
+    const pattern = ['x','o','x','o','x','','o','x','o'];
+    const cells = pattern.map(p => `<div class="cell ${p}">${p === 'x' ? '✕' : p === 'o' ? '◯' : ''}</div>`).join('');
+    return `<div class="store-preview preview-board board-${item.id}">${cells}</div>`;
+  }
+  if (ICONS[catKey] && ICONS[catKey][item.id]) {
+    const icon = ICONS[catKey][item.id];
+    return `<div class="store-preview" style="color:${icon.color}">
+      <img class="svg-icon" src="${icon.url}" alt="${item.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'font-size:40px\\'>🎨</div>'">
+    </div>`;
+  }
+  return `<div class="store-preview"><div style="font-size:40px">🎨</div></div>`;
+}
+
 function renderStore() {
   const grid = document.getElementById('store-grid');
   const cat = STORE_DATA[state.store.currentCat];
-  const ownedList = state.user.current_skin && state.store.currentCat === 'skins'
-    ? (state.user.owned_skins || ['gold'])
-    : (state.user.owned_titles || []);
-  const currentId = state.store.currentCat === 'skins' ? state.user.current_skin : state.user.current_title;
+  const ownedList = state.storeOwned[state.store.currentCat] || [];
+  const currentId = state.storeCurrent[state.store.currentCat];
 
   let items = cat.items;
   if (state.store.currentFilter === 'owned') items = items.filter(i => ownedList.includes(i.id));
@@ -2287,125 +2213,33 @@ function renderStore() {
     const owned = ownedList.includes(item.id);
     const using = currentId === item.id;
     const canBuy = (state.user.points || 0) >= item.price;
+    const isCrate = state.store.currentCat === 'crates';
 
     const card = document.createElement('div');
     card.className = `store-card rarity-${item.rarity}` + (owned ? ' owned' : '') + (using ? ' using' : '');
 
     let badge = '';
     if (using) badge = '<div class="badge badge-using">✓ مستخدم</div>';
-    else if (owned) badge = '<div class="badge badge-owned">✓ مملوك</div>';
+    else if (owned && !isCrate) badge = '<div class="badge badge-owned">✓ مملوك</div>';
     else if (item.rarity === 'legendary') badge = '<div class="badge badge-legendary">🌟</div>';
 
-    let preview = '';
-    if (state.store.currentCat === 'skins') {
-      preview = `<div class="store-preview store-preview-xo skin-${item.id}">
-        <div class="x">${X_SVG}</div><div class="o">${O_SVG}</div>
-        <div class="o">${O_SVG}</div><div class="x">${X_SVG}</div>
-      </div>`;
-    } else {
-      preview = `<div class="store-preview"><div style="font-size:32px;font-weight:900;" class="title-preview-${item.id}">${item.name}</div></div>`;
-    }
-
     let actions = '';
-    if (using) actions = `<button class="btn-use" disabled style="background:rgba(60,60,80,0.4);color:var(--dim);">✓ مستخدم</button>`;
-    else if (owned) actions = `<button class="btn-use" onclick="useStoreItem('${item.id}')" style="background:linear-gradient(135deg,var(--green),#16A34A);color:#FFF;">استخدام</button>`;
-    else actions = `<button class="btn-buy" onclick="buyStoreItem('${item.id}')" ${!canBuy ? 'disabled' : ''} style="background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;">🛒 ${item.price}⭐</button>`;
+    if (isCrate) {
+      actions = `<button class="btn-try" onclick="tryItem('${item.id}')" style="background:rgba(32,32,44,0.9);color:var(--text);border:1px solid rgba(60,60,80,0.5);">👁 معاينة</button>
+        <button class="btn-buy" ${!canBuy ? 'disabled' : ''} onclick="openCrate('${item.id}')" style="background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;">🎁 افتح</button>`;
+    } else if (cat.hasUse) {
+      if (using) actions = `<button class="btn-use" disabled style="background:rgba(60,60,80,0.4);color:var(--dim);">✓ مستخدم</button>`;
+      else if (owned) actions = `<button class="btn-try" onclick="tryItem('${item.id}')" style="background:rgba(32,32,44,0.9);color:var(--text);border:1px solid rgba(60,60,80,0.5);">👁 معاينة</button>
+          <button class="btn-use" onclick="useStoreItem('${item.id}')" style="background:linear-gradient(135deg,var(--green),#16A34A);color:#fff;">استخدام</button>`;
+      else actions = `<button class="btn-try" onclick="tryItem('${item.id}')" style="background:rgba(32,32,44,0.9);color:var(--text);border:1px solid rgba(60,60,80,0.5);">👁 تجربة</button>
+          <button class="btn-buy" ${!canBuy ? 'disabled' : ''} onclick="confirmPurchase('${item.id}')" style="background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;">🛒 شراء</button>`;
+    } else {
+      if (owned) actions = `<button class="btn-use" disabled style="background:rgba(60,60,80,0.4);color:var(--dim);">✓ مملوك</button>`;
+      else actions = `<button class="btn-try" onclick="tryItem('${item.id}')" style="background:rgba(32,32,44,0.9);color:var(--text);border:1px solid rgba(60,60,80,0.5);">👁 معاينة</button>
+          <button class="btn-buy" ${!canBuy ? 'disabled' : ''} onclick="confirmPurchase('${item.id}')" style="background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#000;">🛒 شراء</button>`;
+    }
 
     card.innerHTML = `
       ${badge}
-      ${preview}
-      <div class="card-name">${item.name}</div>
-      <div class="card-rarity rarity-text-${item.rarity}">${RARITY_NAMES[item.rarity]}</div>
-      <div class="card-price">${owned ? '✓ مملوك' : '⭐ ' + item.price}</div>
-      <div class="store-card-actions">${actions}</div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-async function buyStoreItem(id) {
-  if (!state.user || state.isGuest) { toast('سجل حساب أول', 'error'); return; }
-  const cat = state.store.currentCat;
-  const endpoint = cat === 'skins' ? '/api/user/' + state.user.id + '/buy-skin' : '/api/user/' + state.user.id + '/buy-title';
-  const body = cat === 'skins' ? { skin_id: id } : { title_id: id };
-
-  const res = await api(endpoint, 'POST', body);
-  if (!res.ok) { toast(res.data?.detail || 'فشل الشراء', 'error'); return; }
-
-  state.user.points = res.data.points;
-  if (cat === 'skins') { state.user.owned_skins = res.data.owned_skins; state.user.current_skin = res.data.skin_id; }
-  else { state.user.owned_titles = res.data.owned_titles; state.user.current_title = res.data.title_id; }
-
-  saveState();
-  updateUserUI();
-  initStore();
-  confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 }, colors: ['#FFD700', '#F5C842'] });
-  toast('✓ تم الشراء!', 'success');
-}
-
-async function useStoreItem(id) {
-  if (!state.user || state.isGuest) { toast('سجل حساب أول', 'error'); return; }
-  const cat = state.store.currentCat;
-  const endpoint = cat === 'skins' ? '/api/user/' + state.user.id + '/use-skin' : '/api/user/' + state.user.id + '/use-title';
-  const body = cat === 'skins' ? { skin_id: id } : { title_id: id };
-
-  const res = await api(endpoint, 'POST', body);
-  if (!res.ok) { toast('فشل التفعيل', 'error'); return; }
-
-  if (cat === 'skins') state.user.current_skin = res.data.current_skin;
-  else state.user.current_title = res.data.current_title;
-
-  saveState();
-  initStore();
-  toast('✓ تم التفعيل', 'success');
-}
-
-// ============================================================
-// UTIL
-// ============================================================
-function escapeHtml(s) {
-  if (!s) return '';
-  return String(s).replace(/[&<>"']/g, c => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[c]));
-}
-
-// ============================================================
-// INIT
-// ============================================================
-async function init() {
-  loadState();
-  if (state.token || state.isGuest) {
-    if (state.token) {
-      const res = await api('/api/auth/me');
-      if (res.ok) {
-        state.user = res.data;
-        onAuthSuccess();
-        setConnected(true);
-        return;
-      } else {
-        clearState();
-      }
-    } else if (state.isGuest && state.user) {
-      onAuthSuccess();
-      return;
-    }
-  }
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-auth').classList.add('active');
-}
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    if (state.currentScreen === 'auth') {
-      if (!document.getElementById('login-form').classList.contains('hidden')) doLogin();
-      else if (!document.getElementById('register-form').classList.contains('hidden')) doRegister();
-    } else if (state.currentScreen === 'global-chat') sendGlobalChat();
-    else if (state.currentScreen === 'online' && !document.getElementById('online-room').classList.contains('hidden')) sendRoomChat();
-  }
-});
-
-init();
-</script>
-</body>
-</html>
+      ${getStorePreview(item, state.store.currentCat)}
+   
